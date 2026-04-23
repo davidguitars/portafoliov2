@@ -1,75 +1,114 @@
+# David Urdaneta — Portfolio v2
 
-# Angie
+Portfolio personal construido con Astro, diseño técnico/editorial minimalista orientado a marca personal y captación de clientes enterprise.
 
-ANGIE is a sleek Astro portfolio template built for creatives and developers. Featuring responsive layouts, customizable sections, and a bold brutalist design, it’s made to help you stand out and showcase your work with style.
-
-
-
-![basics](./src/assets/demo/thumbnail.png)
+<img width="1616" height="795" alt="image" src="https://github.com/user-attachments/assets/e8ff5776-572b-430c-8430-ae437b0c3f04" />
 
 
-### Dependencies used in this project:
-- [TailwindCSS](https://tailwindcss.com/)
-- [GSAP](https://gsap.com/)
-- [Remix Icon](https://remixicon.com/)
+---
 
-### Credits:
-- [Pexels images](https://www.pexels.com/)
-- [Design inspo](https://www.figma.com/design/YHGwlMXQLVCE3mTF4JVA5I/2024-Portfolios-(Community)?node-id=1-914&t=6JAt4v8pqxzppZ0b-0)
+## Stack
 
+- **[Astro](https://astro.build/)** — framework principal, generación estática
+- **[Tailwind CSS](https://tailwindcss.com/)** — utilidades de estilo
+- **[GSAP](https://gsap.com/)** — animaciones (ticker de tools, logos de clientes)
+- **[IBM Plex Mono + IBM Plex Sans](https://fonts.google.com/)** — sistema tipográfico
+- **[Remix Icon](https://remixicon.com/)** — iconografía
 
+---
 
-Inside of your Astro project, you'll see the following folders and files:
+## Estructura
 
-```text
-
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── components/
-│   │   └── Bars.astro
-        └── Button.astro
-        └── CallToAction.astro
-        └── Footer.astro
-        └── Header.astro
-        └── Hero.astro
-        └── MarddownPost.astro
-        └── Reviews.astro
-        └── Service.astro
-        └── Tools.astro
-        └── Work.astro
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-        └── posts/
-        └── blog.astro
-        └── index.astro
-└── styles/
-└── package.json
+```
+src/
+├── components/
+│   ├── Header.astro          # Nav sticky con menú mobile
+│   ├── Hero.astro            # Canvas animado red global + foto
+│   ├── Tools.astro           # Ticker de tecnologías con GSAP
+│   ├── Service.astro         # Grid de servicios con stats
+│   ├── Works.astro           # Proyectos seleccionados
+│   ├── Reviews.astro         # Testimonios + ticker de logos
+│   ├── CallToAction.astro    # Sección de contacto dark
+│   ├── Footer.astro          # Footer minimalista
+│   ├── Button.astro          # Componente de botón reutilizable
+│   └── MarkdownPost.astro    # Layout para artículos del blog
+├── layouts/
+│   └── Layout.astro          # HTML base
+├── pages/
+│   ├── index.astro           # Home
+│   ├── blog.astro            # Listado del blog
+│   └── posts/               # Artículos en Markdown
+│       └── *.md
+├── styles/
+│   └── global.css            # Tokens de diseño y utilidades
+public/
+└── images/                   # Imágenes estáticas y foto de perfil
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+---
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## Comandos
 
-Any static assets, like images, can be placed in the `public/` directory.
+```bash
+npm install       # Instala dependencias
+npm run dev       # Servidor local en localhost:4321
+npm run build     # Build de producción en ./dist/
+```
 
-## 🧞 Commands
+---
 
-All commands are run from the root of the project, from a terminal:
+## Personalización rápida
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
+**Datos personales** → `src/sample.ts`
+```ts
+const author = {
+  name:     "Tu nombre",
+  nickname: "Tu apodo",
+  email:    "mailto:tuemail@dominio.com",
+  ig:       "https://instagram.com/...",
+  x:        "https://x.com/...",
+  tiktok:   "https://tiktok.com/...",
+}
+```
 
+**Proyectos** → `src/components/Works.astro`
 
+**Servicios** → `src/components/Service.astro`
 
-## 👀 Curious to Explore More?
+**Testimonios y logos** → `src/components/Reviews.astro`
 
-Check out [LAB-CH3](https://github.com/LaB-CH3) for a growing collection of current and future templates. 
+**Artículos del blog** → crear archivos `.md` en `src/pages/posts/` con este frontmatter:
+```md
+---
+layout: ../../components/MarkdownPost.astro
+title: "Título del artículo"
+image:
+  url: "https://url-imagen.jpg"
+  alt: "descripción"
+tags: ["Tag1", "Tag2"]
+pubDate: 'Abr 22, 2026'
+---
 
-If you’ve found this helpful, consider fueling my creativity!  
-[![Buy me a coffee](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/d2OuR1c)
+Contenido en Markdown...
+```
 
+---
+
+## Deploy en Hostinger
+
+```bash
+npm run build
+# Sube el contenido de /dist a public_html/ en tu panel de Hostinger
+```
+
+---
+
+## Diseño
+
+Dirección visual: **técnico / editorial** — tipografía monoespaciada, grid de líneas finas, acento lima `#C8FF00`, fondo paper `#F5F4F0`.
+
+Secciones incluidas: Hero con red global animada · Ticker de herramientas · Servicios con stats · Trabajos seleccionados · Testimonios · Blog con sidebar y CTA · Contacto dark · Footer.
+
+---
+
+Construido por **David Urdaneta** — [instagram](https://instagram.com/codetonero) · [x](https://x.com/codetonero)
