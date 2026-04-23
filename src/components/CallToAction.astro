@@ -1,18 +1,114 @@
 ---
-import svgPinkStar from '../assets/pink-star.svg'
-import Button from './Button.astro'
-import { buy } from '../sample'
-
+import { author } from "../sample";
 ---
 
+<section
+  id="contacto"
+  style="border-bottom: 1px solid var(--border); background: var(--bg-dark);">
+  <div style="max-width: var(--max-w); margin: 0 auto; padding: 5rem 1.5rem;">
+    <div
+      style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;"
+      class="cta-grid">
+      <div>
+        <div class="label-tag" style="color: #6B6A65; margin-bottom: 1.25rem;">
+          ¿Listo para escalar?
+        </div>
+        <h2
+          style="font-size: clamp(2rem, 4vw, 3rem); font-weight: 500; color: #F5F4F0; line-height: 1.1; letter-spacing: -0.03em; margin-bottom: 1.5rem;">
+          Hablemos de<br />tu próximo<br />
+          <span style="color: var(--accent);">proyecto.</span>
+        </h2>
+        <p
+          style="font-size: 0.9rem; color: #6B6A65; max-width: 34ch; line-height: 1.7;">
+          Trabajo con marcas que buscan resultados reales. Si tu proyecto
+          necesita diseño, desarrollo o estrategia digital con IA, estoy
+          disponible.
+        </p>
+      </div>
 
-<section class="px-3" id="hire">
-    <div class="max-w-3xl mx-auto bg-white text-center flex flex-col gap-4 border-3 shadow-[8px_8px_0px_rgba(0,0,0,0.3)]  relative p-10">
-     <h1 class="text-3xl">Let’s start designing your project</h1>
-     <p class="text-lg max-w-lg mx-auto">Want to see how to transform your brand into a unique style. send me a message</p>
-     <div class="flex justify-center">
-       <Button text={buy.title} link={buy.link} target="_blank" />
-     </div>
-     <img src={svgPinkStar.src} alt="svg" width="80" class="absolute -top-10 right-20" />
+      <div style="display: flex; flex-direction: column; gap: 1rem;">
+        <!-- Email -->
+        <a
+          href={`mailto:${author.email.replace("mailto:", "")}`}
+          style="
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          border: 1px solid #2A2A28;
+          padding: 1.25rem 1.5rem;
+          color: #F5F4F0;
+          transition: border-color 0.15s ease, background 0.15s ease;
+          font-family: var(--font-mono);
+          font-size: 0.8rem;
+        "
+          class="cta-link">
+          <span class="label-tag" style="color: #6B6A65;">Email</span>
+          <span>{author.email.replace("mailto:", "")}</span>
+          <span>→</span>
+        </a>
+
+        <!-- WhatsApp / Contacto directo -->
+        <a
+          href="#"
+          style="
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          border: 1.5px solid var(--accent);
+          padding: 1.25rem 1.5rem;
+          color: var(--ink);
+          background: var(--accent);
+          transition: opacity 0.15s ease;
+          font-family: var(--font-mono);
+          font-size: 0.8rem;
+          font-weight: 500;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+        "
+          class="cta-main">
+          <span>Agendar llamada</span>
+          <span>→</span>
+        </a>
+
+        <div
+          style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-top: 0.25rem;">
+          <a
+            href={author.linkedin}
+            target="_blank"
+            style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; border: 1px solid #2A2A28; padding: 0.75rem; color: #6B6A65; font-family: var(--font-mono); font-size: 0.7rem; transition: border-color 0.15s, color 0.15s;"
+            class="social-link">
+            <i class="ri-linkedin-line"></i> LinkedIn
+          </a>
+          <a
+            href={author.github}
+            target="_blank"
+            style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; border: 1px solid #2A2A28; padding: 0.75rem; color: #6B6A65; font-family: var(--font-mono); font-size: 0.7rem; transition: border-color 0.15s, color 0.15s;"
+            class="social-link">
+            <i class="ri-github-line"></i> Github
+          </a>
+        </div>
+      </div>
     </div>
-  </section>
+  </div>
+</section>
+
+<style>
+  .cta-link:hover {
+    border-color: #4a4a48;
+    background: #1a1a18;
+  }
+  .cta-main:hover {
+    opacity: 0.9;
+  }
+  .social-link:hover {
+    border-color: #4a4a48;
+    color: #f5f4f0;
+  }
+
+  @media (max-width: 768px) {
+    .cta-grid {
+      grid-template-columns: 1fr !important;
+      gap: 2.5rem !important;
+    }
+  }
+</style>

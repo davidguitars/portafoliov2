@@ -1,73 +1,228 @@
 ---
-import svgNew from '../assets/new.svg'
-
 const testimonials = [
-  { 
-    comment: `“Design is a bridge that connects everyone and everything”`,
+  {
+    comment:
+      "Quiero agradecer enormemente los servicios de David Urdaneta, gran profesional que me ayudó de manera rápida y eficaz a reestablecer y migrar mi sitio Web. Buena disposición y rapidez independiente de la distancia. Recomendable y confiable.",
     author: {
-      name: `Client Name`,
-      pos: `Project Manager, Company Name`,
-      pic: `https://images.pexels.com/photos/2709386/pexels-photo-2709386.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2`
+      name: "Marcelo López",
+      pos: "Grupo AWA — Santiago / Portugal",
+      initials: "ML",
     },
-    cls: `rotate-2 -translate-y-10`
-   },
-   { 
-    comment: `“Design is a bridge that connects everyone and everything”`,
+  },
+  {
+    comment:
+      "Trabajar con él fue una de las mejores decisiones para nuestro negocio. Entendió nuestra visión desde el primer día y entregó algo mejor de lo que imaginábamos.",
     author: {
-      name: `Client Name`,
-      pos: `Project Manager, Company Name`,
-      pic: `https://images.pexels.com/photos/2128819/pexels-photo-2128819.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2`
+      name: "Cliente — Estudio Roca",
+      pos: "Director, Estudio Roca",
+      logo: "https://estudioroca.cl/cdn/shop/files/Logo_ER_2026.png?height=196&v=1773404790",
     },
-    cls: `-rotate-2 -translate-x-10  z-5`
-   },
-   { 
-    comment: `“Design is a bridge that connects everyone and everything”`,
+  },
+  {
+    comment:
+      "El resultado superó todas nuestras expectativas. Proceso ordenado, comunicación clara y un producto final que realmente convierte.",
     author: {
-      name: `Client Name`,
-      pos: `Project Manager, Company Name`,
-      pic: `https://images.pexels.com/photos/2169429/pexels-photo-2169429.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2`
+      name: "Cliente — Vetercalm",
+      pos: "Fundador, Vetercalm",
+      logo: "https://vetercalm.cl/wp-content/themes/woodmart-child-vetercalm/assets/img/logo/vetercalm-logo-default.webp",
     },
-    cls: `rotate-2 translate-x-5 z-5`
-   },
-   { 
-    comment: `“Design is a bridge that connects everyone and everything”`,
-    author: {
-      name: `Client Name`,
-      pos: `Project Manager, Company Name`,
-      pic: `https://images.pexels.com/photos/3586798/pexels-photo-3586798.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2`
-    },
-    cls: `-rotate-2 translate-y-10 md:translate-y-15`
-   },
-]
+  },
+];
+
+const clientLogos = [
+  {
+    name: "Estudio Roca",
+    logo: "https://estudioroca.cl/cdn/shop/files/Logo_ER_2026.png?height=196&v=1773404790",
+  },
+  {
+    name: "Vetercalm",
+    logo: "https://vetercalm.cl/wp-content/themes/woodmart-child-vetercalm/assets/img/logo/vetercalm-logo-default.webp",
+  },
+  {
+    name: "Decorafácil",
+    logo: "https://decorafacil.cl/wp-content/uploads/2024/05/Logo-Decorafacil-sin-fondo.png",
+  },
+  {
+    name: "Gestion Pro Recicla",
+    logo: "https://gestionprorecicla.cl/wp-content/uploads/2023/06/cropped-LOGOTIPO-PRORECICLA-VERSION-HORIZONTAL-01.png",
+  },
+  {
+    name: "Divamaos",
+    logo: "https://divamaos.com/wp-content/uploads/2026/01/Divamaos.png",
+  },
+  {
+    name: "Red Services",
+    logo: "https://redserviceschile.cl/wp-content/uploads/2023/08/Logo-Header.png",
+  },
+];
 ---
 
-
-<section>
-    <div class="max-w-4xl mx-auto pb-20 px-10 overflow-hidden">
-      <div class="grid grid-cols-1 md:grid-cols-2">
-        <div class="flex relative">
-          <h1 class="text-3xl">Here’s what my clients are saying about my work</h1>
-          <img src={svgNew.src} alt="arrow" width="40" class="absolute -right-3 md:-right-10 bottom-0" />
+<section id="reviews" style="border-bottom: 1px solid var(--border);">
+  <div style="max-width: var(--max-w); margin: 0 auto;">
+    <!-- Header -->
+    <div
+      style="display: grid; grid-template-columns: 1fr 2fr; border-bottom: 1px solid var(--border);"
+      class="reviews-header">
+      <div
+        style="padding: 2.5rem 1.5rem; border-right: 1px solid var(--border);">
+        <div class="label-tag" style="margin-bottom: 0.75rem;">Testimonios</div>
+        <div
+          style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--ink-faint);">
+          [04]
         </div>
       </div>
-  
-  
-      <div class="grid grid-cols-1 md:grid-cols-2 py-30">
-        {testimonials.map(item => ( 
-          <div class={`flex flex-col gap-3 p-5 pr-15 bg-white border-2 shadow-[6px_6px_0px_rgba(0,0,0,0.3)] ${item.cls}`}>
-            <p>{item.comment}</p>
-            <div class="flex items-center gap-2">
-              <div><div class="size-11 rounded-full border overflow-hidden">
-                  <img src={item.author.pic} alt="" class="w-full h-full object-cover" />
-              </div></div>
-              <div>
-                <h3 class="font-medium">{item.author.name}</h3>
-                <p>{item.author.pos}</p>
+      <div style="padding: 2.5rem 2rem; display: flex; align-items: flex-end;">
+        <h2
+          style="font-size: clamp(1.3rem, 2.5vw, 1.9rem); font-weight: 500; color: var(--ink); max-width: 28ch;">
+          Lo que dicen quienes confiaron su proyecto
+        </h2>
+      </div>
+    </div>
+
+    <!-- Testimonios — cada card es flex column para alinear autor al fondo -->
+    <div
+      class="testimonials-grid"
+      style="display: grid; grid-template-columns: repeat(3, 1fr); border-bottom: 1px solid var(--border); align-items: stretch;">
+      {
+        testimonials.map((t, i) => (
+          <div
+            style={`
+          padding: 2rem 1.5rem;
+          display: flex;
+          flex-direction: column;
+          ${i < testimonials.length - 1 ? "border-right: 1px solid var(--border);" : ""}
+        `}>
+            {/* Comilla */}
+            <div style="font-family: var(--font-mono); font-size: 2rem; color: var(--border); line-height: 1; margin-bottom: 1rem; user-select: none;">
+              "
+            </div>
+
+            {/* Texto crece y empuja autor al fondo */}
+            <p style="font-size: 0.88rem; line-height: 1.75; color: var(--ink-muted); flex: 1; margin-bottom: 0;">
+              {t.comment}
+            </p>
+
+            {/* Autor — siempre al fondo de la card */}
+            <div style="border-top: 1px solid var(--border); padding-top: 1rem; margin-top: 1.5rem;">
+              {t.author.logo && (
+                <img
+                  src={t.author.logo}
+                  alt={t.author.name}
+                  style="display: block; height: 18px; width: auto; max-width: 90px; object-fit: contain; object-position: left; filter: grayscale(1); opacity: 0.5; margin-bottom: 0.6rem;"
+                />
+              )}
+              <div style="display: flex; align-items: center; gap: 0.6rem;">
+                {!t.author.logo && (
+                  <div style="width: 30px; height: 30px; background: var(--ink); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                    <span style="font-family: var(--font-mono); font-size: 0.58rem; font-weight: 600; color: var(--accent);">
+                      {t.author.initials}
+                    </span>
+                  </div>
+                )}
+                <div>
+                  <div style="font-family: var(--font-mono); font-size: 0.72rem; font-weight: 500; color: var(--ink);">
+                    {t.author.name}
+                  </div>
+                  <div style="font-family: var(--font-mono); font-size: 0.63rem; color: var(--ink-faint); margin-top: 0.1rem;">
+                    {t.author.pos}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        ))}
-      </div>
-  
+        ))
+      }
     </div>
-   </section>
+
+    <!-- Ticker de logos -->
+    <div style="border-bottom: 1px solid var(--border);">
+      <div
+        style="padding: 0.85rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 1rem;">
+        <span class="label-tag">Clientes</span>
+        <span
+          style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--ink-faint);"
+          >{clientLogos.length} marcas</span
+        >
+      </div>
+
+      <div style="overflow: hidden; position: relative; padding: 1.5rem 0;">
+        <div
+          style="position: absolute; left: 0; top: 0; bottom: 0; width: 80px; background: linear-gradient(to right, var(--bg), transparent); z-index: 2; pointer-events: none;">
+        </div>
+        <div
+          style="position: absolute; right: 0; top: 0; bottom: 0; width: 80px; background: linear-gradient(to left, var(--bg), transparent); z-index: 2; pointer-events: none;">
+        </div>
+
+        <div
+          id="logos-track"
+          style="display: flex; align-items: center; width: max-content; gap: 0;">
+          {
+            clientLogos.map((c) => (
+              <div style="padding: 0 3rem; display: flex; align-items: center; justify-content: center; height: 48px; border-right: 1px solid var(--border); flex-shrink: 0;">
+                <img
+                  src={c.logo}
+                  alt={c.name}
+                  style="height: 24px; width: auto; max-width: 110px; object-fit: contain; filter: grayscale(1); opacity: 0.45; transition: opacity 0.2s ease;"
+                  class="logo-img"
+                  onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                />
+                <span style="display:none; font-family: var(--font-mono); font-size: 0.7rem; font-weight: 500; color: var(--ink-faint); letter-spacing: 0.05em;">
+                  {c.name}
+                </span>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from "gsap";
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const track = document.getElementById("logos-track") as HTMLElement;
+    if (!track) return;
+
+    const original = Array.from(track.children);
+    original.forEach((el) => track.appendChild(el.cloneNode(true)));
+    const totalW = track.scrollWidth / 2;
+
+    gsap.to(track, { x: -totalW, duration: 22, ease: "none", repeat: -1 });
+
+    track.addEventListener("mouseenter", () => gsap.globalTimeline.pause());
+    track.addEventListener("mouseleave", () => gsap.globalTimeline.resume());
+
+    track.querySelectorAll(".logo-img").forEach((img) => {
+      img.addEventListener(
+        "mouseenter",
+        () => ((img as HTMLImageElement).style.opacity = "0.85"),
+      );
+      img.addEventListener(
+        "mouseleave",
+        () => ((img as HTMLImageElement).style.opacity = "0.45"),
+      );
+    });
+  });
+</script>
+
+<style>
+  @media (max-width: 768px) {
+    .reviews-header,
+    .testimonials-grid {
+      grid-template-columns: 1fr !important;
+    }
+    .reviews-header > div:first-child {
+      border-right: none !important;
+      border-bottom: 1px solid var(--border);
+    }
+    .testimonials-grid > div {
+      border-right: none !important;
+      border-bottom: 1px solid var(--border);
+    }
+    .testimonials-grid > div:last-child {
+      border-bottom: none !important;
+    }
+  }
+</style>

@@ -1,29 +1,44 @@
 ---
-import logoStar from '../assets/logo-star.svg'
-import { author } from '../sample'
-
-const socials = [
-  { icon: 'ri-tiktok-fill', link: author.tiktok },
-	{ icon: 'ri-instagram-line', link: author.ig },
-  { icon: 'ri-twitter-x-line', link: author.x },
-]
-
+import { author } from "../sample";
 ---
 
-<footer class="border-t-4 px-5 md:px-0 py-10 mt-30">
-    <div class="max-w-3xl mx-auto flex justify-center flex-col gap-5 md:gap-0 md:grid md:grid-cols-3 items-center">
-      <div class="flex-1 font-bold">
-        <a href="/" class="flex items-center gap-3 text-xl">
-            <img src={logoStar.src} alt="logo" width="30" /> {author.nickname}
-        </a>
-      </div>
-      <div class="text-center">
-        <p>© {new Date().getFullYear()} {author.nickname}. All rights reserved.</p>
-      </div>
-      <div class="flex md:justify-end gap-5">
-        {socials.map(item => ( 
-          <a href={item.link} target="_blank" class="transition-all duration-200 hover:translate-y-[2px]"><i class={`${item.icon} text-2xl`}></i></a>
-        ))}
-      </div>
+<footer
+  style="border-top: 1px solid var(--border); background: var(--bg-dark);">
+  <div
+    style="max-width: var(--max-w); margin: 0 auto; padding: 1.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+    <a
+      href="/"
+      style="font-family: var(--font-mono); font-size: 0.78rem; font-weight: 600; color: #F5F4F0; display: flex; align-items: center; gap: 0.5rem;">
+      <span
+        style="display: inline-block; width: 6px; height: 6px; background: var(--accent);"
+      ></span>
+      {author.nickname}
+    </a>
+
+    <p
+      style="font-family: var(--font-mono); font-size: 0.65rem; color: #3A3A38; max-width: none;">
+      © {new Date().getFullYear()}
+      {author.nickname} · Todos los derechos reservados
+    </p>
+
+    <div style="display: flex; gap: 2.25rem;">
+      {
+        [{ icon: "ri-linkedin-box-fill", link: author.linkedin }].map((s) => (
+          <a
+            href={s.link}
+            target="_blank"
+            style="color: #3A3A38; transition: color 0.15s ease; font-size: 1rem;"
+            class="footer-social">
+            <i class={s.icon} />
+          </a>
+        ))
+      }
     </div>
-   </footer>
+  </div>
+</footer>
+
+<style>
+  .footer-social:hover {
+    color: var(--accent) !important;
+  }
+</style>

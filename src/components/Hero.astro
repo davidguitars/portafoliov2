@@ -1,74 +1,350 @@
 ---
-import Button from "./Button.astro"
-import Bars from "./Bars.astro"
-
-import svgheroContent from '../assets/hero-content.svg'
-import svgRedStar from '../assets/red-star.svg'
-import svgIdea from '../assets/idea.svg'
-import svgArrow from '../assets/arrow.svg'
-
-import svgPinkStar from '../assets/pink-star.svg'
-import svgString from '../assets/string.svg'
-
-import { author, buy } from '../sample'
-
+import Button from "./Button.astro";
+import { author } from "../sample";
 ---
 
-
-<section class="pb-20 relative">
-    <div class="max-w-4xl mx-auto p-4 pt-20 md:pt-30">
-      <div class="grid grid-cols-1 md:grid-cols-[60%_40%] items-center">
-        <div class="flex flex-col gap-4 pr-0 md:pr-10">
-          <img src={svgheroContent.src} alt="logo" width="80" />
-
-            <h1 class="text-5xl font-medium">
-              <span>I build top <br> notch</span>
-              <span class="relative">
-                <span class="absolute bg-[var(--yellow)] w-full h-[50%] left-0 bottom-0 z-1"></span>
-                <span class="relative z-5">websites</span>
-              </span>
-            </h1>
-            <p class="text-xl">Passionate UX Engineer & Designer crafting intuitive, user-centered experiences.</p>
-           <div class="flex mt-5">
-             <Button text="See portfolio" link="/#work" target="_self" />
-           </div>
-        </div>
-        <div class="relative mt-40 md:mt-0">
-          <div class="flex absolute -top-20 left-0 z-10">
-            <!-- name with smile icon -->
-            <div class="flex transform -rotate-30 translate-y-3">
-              <svg class="size-5" viewBox="0 0 37 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M19.5479 4.4031C18.6713 5.80238 19.9271 9.81219 21.7001 11.2897C23.0602 12.3947 24.0665 11.888 24.3315 9.94798C24.6359 7.90326 23.1377 5.00064 21.4323 4.27109C20.1328 3.70088 19.9764 3.72964 19.5479 4.4031Z" fill="black"/>
-                <path d="M7.84038 5.33376C6.96374 6.73304 8.21957 10.7429 9.99262 12.2204C11.3527 13.3254 12.359 12.8186 12.624 10.8786C12.9284 8.83392 11.4302 5.9313 9.72476 5.20175C8.42528 4.63154 8.26883 4.66031 7.84038 5.33376Z" fill="black"/>
-                <path d="M2.88193 16.7075C3.24136 18.9226 7.35405 23.0018 11.0101 24.7375C12.1376 25.3003 14.0826 25.7031 15.8021 25.7769C18.5025 25.8751 18.8859 25.7851 22.3741 24.1786C25.7215 22.637 26.2387 22.2689 27.844 20.4042C29.889 17.9907 31.8424 12.8058 31.2223 11.3601C30.6796 10.095 29.8918 10.7176 28.3133 13.8252C26.5656 17.2272 25.5918 18.4981 23.558 19.9541C21.6144 21.3254 17.9796 22.3934 15.6935 22.2776C12.9776 22.1433 7.87127 19.3874 5.0947 16.5541C3.68105 15.1275 2.64514 15.1717 2.88193 16.7075Z" fill="black"/>
-              </svg>
-              <span class="uppercase font-black">{author.name}</span>
-            </div>
-
-            <img src={svgArrow.src} width="80" class="-translate-x-10" alt="arrow icon" />
-          </div>
-
-          <div class="relative p-8 bg-white">
-            <img src={svgRedStar.src} width="80" alt="red-star" class="absolute bottom-1 right-1 z-10" />
-            <img src={svgIdea.src} width="60" alt="idea" class="absolute top-16 -left-3 z-10" />   
-            <img src={svgString.src} width="50" alt="string" class="absolute -top-6 -right-2 z-10" />             
-          
-             <div id="me" class="w-full h-[310px] border-2"></div>
-             <Bars />
-          </div>
+<section
+  style="min-height: calc(100vh - 56px); border-bottom: 1px solid var(--border); display: flex; align-items: center; overflow: hidden; position: relative;">
+  <div
+    style="max-width: var(--max-w); margin: 0 auto; padding: 4rem 1.5rem; width: 100%; position: relative; z-index: 2;">
+    <div
+      style="display: grid; grid-template-columns: 1fr 420px; gap: 3rem; align-items: center;"
+      class="hero-grid">
+      <!-- COLUMNA IZQUIERDA -->
+      <div>
+        <!-- Label -->
+        <div
+          style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2.5rem;">
+          <span class="status-dot"></span>
+          <span class="label-tag">Disponible para proyectos · 2026</span>
         </div>
 
+        <!-- Headline -->
+        <h1
+          style="font-size: clamp(2rem, 4.5vw, 3.5rem); font-weight: 500; line-height: 1.05; letter-spacing: -0.03em; color: var(--ink); margin-bottom: 0.08em;">
+          Transformo UX/UI
+        </h1>
+        <h1
+          style="font-size: clamp(2rem, 4.5vw, 3.5rem); font-weight: 500; line-height: 1.05; letter-spacing: -0.03em; color: var(--ink); margin-bottom: 0.08em;">
+          en productos
+        </h1>
+        <h1
+          style="font-size: clamp(2rem, 4.5vw, 3.5rem); font-weight: 500; line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 2rem;">
+          digitales <span
+            style="background: var(--accent); color: var(--ink); padding: 0 0.18em;"
+            >que venden.</span
+          >
+        </h1>
+
+        <p
+          style="font-size: 1rem; line-height: 1.7; color: var(--ink-muted); max-width: 38ch; margin-bottom: 2rem;">
+          7 años convirtiendo investigación de usuarios y diseño de interfaces
+          en experiencias que generan resultados reales.
+        </p>
+
+        <div
+          style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; margin-bottom: 3rem;">
+          <Button
+            text="Ver trabajo"
+            link="/#work"
+            target="_self"
+            variant="primary"
+          />
+          <Button
+            text="Contactar"
+            link="/#contacto"
+            target="_self"
+            variant="secondary"
+          />
+        </div>
+
+        <!-- Stats fila -->
+        <div
+          style="display: flex; gap: 0; border-top: 1px solid var(--border); padding-top: 1.5rem;">
+          {
+            [
+              { val: "7+", label: "Años exp." },
+              { val: "50+", label: "Proyectos" },
+              { val: "10", label: "Certs." },
+            ].map((s, i) => (
+              <div
+                style={`padding-right: 2rem;${i > 0 ? " padding-left: 2rem; border-left: 1px solid var(--border);" : ""}`}>
+                <div style="font-family: var(--font-mono); font-size: 1.6rem; font-weight: 600; color: var(--ink); line-height: 1;">
+                  {s.val}
+                </div>
+                <div class="label-tag" style="margin-top: 0.3rem;">
+                  {s.label}
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+
+      <!-- COLUMNA DERECHA — Canvas + Foto -->
+      <div
+        style="position: relative; height: 520px; display: flex; align-items: center; justify-content: center;"
+        class="hero-visual">
+        <!-- Canvas red de nodos -->
+        <canvas
+          id="network-canvas"
+          style="position: absolute; inset: 0; width: 100%; height: 100%; border-radius: 4px;"
+        ></canvas>
+
+        <!-- Foto de David -->
+        <div
+          style="
+          position: relative;
+          z-index: 5;
+          width: 260px;
+          height: 320px;
+          border: 1.5px solid var(--border);
+          overflow: hidden;
+          background: var(--bg-surface);
+          box-shadow: 8px 8px 0 var(--ink);
+        ">
+          <img
+            src="/images/david-profile.png"
+            alt="David Urdaneta — UX/UI Designer & Developer"
+            style="width: 100%; height: 100%; object-fit: cover; object-position: top center; filter: grayscale(15%);"
+          />
+        </div>
+
+        <!-- Badge flotante -->
+        <div
+          style="
+          position: absolute;
+          bottom: 60px;
+          right: 10px;
+          z-index: 10;
+          background: var(--bg-dark);
+          border: 1px solid var(--border-dark);
+          padding: 0.6rem 0.9rem;
+          display: flex;
+          flex-direction: column;
+          gap: 0.2rem;
+        ">
+          <div
+            style="font-family: var(--font-mono); font-size: 0.6rem; color: var(--ink-faint); letter-spacing: 0.1em; text-transform: uppercase;">
+            Ubicado en
+          </div>
+          <div
+            style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 500; color: #F5F4F0;">
+            Portugal 🌐 Global
+          </div>
+        </div>
+
+        <!-- Badge cert IA -->
+        <div
+          style="
+          position: absolute;
+          top: 40px;
+          left: 0px;
+          z-index: 10;
+          background: var(--accent);
+          border: 1.5px solid var(--ink);
+          padding: 0.5rem 0.8rem;
+        ">
+          <div
+            style="font-family: var(--font-mono); font-size: 0.6rem; font-weight: 600; color: var(--ink); letter-spacing: 0.08em; text-transform: uppercase;">
+            ✦ IA Certified 2026
+          </div>
+        </div>
       </div>
     </div>
+  </div>
+</section>
 
-    <img src={svgPinkStar.src} alt="start" width="50" class="absolute -bottom-4" />
-  </section>
+<script>
+  const canvas = document.getElementById("network-canvas") as HTMLCanvasElement;
+  if (!canvas) throw new Error();
+  const ctx = canvas.getContext("2d")!;
 
+  function resize() {
+    canvas.width = canvas.offsetWidth * window.devicePixelRatio;
+    canvas.height = canvas.offsetHeight * window.devicePixelRatio;
+    ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+  }
+  resize();
+  window.addEventListener("resize", resize);
 
-  <style>
-    #me{
-     background-image: url('https://images.pexels.com/photos/1858175/pexels-photo-1858175.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
-     background-position: top;
-     background-size: cover;
+  const NODE_COUNT = 38;
+  const CONNECT_DIST = 120;
+  const W = () => canvas.offsetWidth;
+  const H = () => canvas.offsetHeight;
+
+  interface Node {
+    x: number;
+    y: number;
+    vx: number;
+    vy: number;
+    r: number;
+    pulse: number;
+    pulseSpeed: number;
+    label?: string;
+  }
+
+  const LABELS = [
+    "VE",
+    "CL",
+    "US",
+    "ES",
+    "MX",
+    "CO",
+    "AR",
+    "BR",
+    "PT",
+    "DE",
+    "FR",
+    "CA",
+    "AU",
+    "JP",
+    "UK",
+  ];
+
+  const nodes: Node[] = Array.from({ length: NODE_COUNT }, (_, i) => ({
+    x: Math.random() * W(),
+    y: Math.random() * H(),
+    vx: (Math.random() - 0.5) * 0.3,
+    vy: (Math.random() - 0.5) * 0.3,
+    r: Math.random() > 0.82 ? 5.5 : 3,
+    pulse: Math.random() * Math.PI * 2,
+    pulseSpeed: 0.015 + Math.random() * 0.02,
+    label: i < LABELS.length ? LABELS[i] : undefined,
+  }));
+
+  let activePath: {
+    from: number;
+    to: number;
+    progress: number;
+    speed: number;
+  } | null = null;
+
+  function pickNewPath() {
+    const from = Math.floor(Math.random() * NODE_COUNT);
+    let to = from;
+    while (to === from) to = Math.floor(Math.random() * NODE_COUNT);
+    activePath = {
+      from,
+      to,
+      progress: 0,
+      speed: 0.008 + Math.random() * 0.006,
+    };
+  }
+  pickNewPath();
+
+  function draw() {
+    const w = W(),
+      h = H();
+    ctx.clearRect(0, 0, w, h);
+
+    // ─── COLORES MÁS VISIBLES ───────────────────────────────
+    const nodeColor = "rgba(180, 255, 0, 0.75)"; // verde lima opaco
+    const lineColor = "rgba(180, 255, 0, 0.18)"; // líneas claramente visibles
+    const activeColor = "rgba(200, 255, 0, 1)"; // hilo viajero: 100% opaco
+    const pulseColor = "rgba(180, 255, 0, 0.22)"; // halo pulsante
+    const labelColor = "rgba(180, 255, 0, 0.65)"; // etiquetas de país
+
+    // Conexiones estáticas
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const dx = nodes[i].x - nodes[j].x;
+        const dy = nodes[i].y - nodes[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < CONNECT_DIST) {
+          const alpha = (1 - dist / CONNECT_DIST) * 0.35;
+          ctx.beginPath();
+          ctx.moveTo(nodes[i].x, nodes[i].y);
+          ctx.lineTo(nodes[j].x, nodes[j].y);
+          ctx.strokeStyle = `rgba(180,255,0,${alpha})`;
+          ctx.lineWidth = 0.8;
+          ctx.stroke();
+        }
+      }
     }
-   </style>
+
+    // Hilo viajero
+    if (activePath) {
+      const { from, to, progress } = activePath;
+      const fx = nodes[from].x,
+        fy = nodes[from].y;
+      const tx = nodes[to].x,
+        ty = nodes[to].y;
+      const cx = fx + (tx - fx) * progress;
+      const cy = fy + (ty - fy) * progress;
+
+      ctx.beginPath();
+      ctx.moveTo(fx, fy);
+      ctx.lineTo(cx, cy);
+      ctx.strokeStyle = activeColor;
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+
+      // Halo del punto viajero
+      ctx.beginPath();
+      ctx.arc(cx, cy, 8, 0, Math.PI * 2);
+      ctx.fillStyle = "rgba(200,255,0,0.18)";
+      ctx.fill();
+      // Punto viajero sólido
+      ctx.beginPath();
+      ctx.arc(cx, cy, 3, 0, Math.PI * 2);
+      ctx.fillStyle = activeColor;
+      ctx.fill();
+
+      activePath.progress += activePath.speed;
+      if (activePath.progress >= 1) pickNewPath();
+    }
+
+    // Nodos
+    nodes.forEach((n) => {
+      n.pulse += n.pulseSpeed;
+      const pScale = 1 + Math.sin(n.pulse) * 0.35;
+
+      // Halo grande en nodos prominentes
+      if (n.r > 4) {
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, n.r * 4 * pScale, 0, Math.PI * 2);
+        ctx.fillStyle = pulseColor;
+        ctx.fill();
+      }
+
+      // Nodo principal
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+      ctx.fillStyle = nodeColor;
+      ctx.fill();
+
+      // Etiqueta de país
+      if (n.label && n.r > 4) {
+        ctx.font = "600 9px IBM Plex Mono, monospace";
+        ctx.fillStyle = labelColor;
+        ctx.fillText(n.label, n.x + 8, n.y - 6);
+      }
+
+      n.x += n.vx;
+      n.y += n.vy;
+      if (n.x < 0 || n.x > w) n.vx *= -1;
+      if (n.y < 0 || n.y > h) n.vy *= -1;
+    });
+
+    requestAnimationFrame(draw);
+  }
+
+  draw();
+</script>
+
+<style>
+  @media (max-width: 900px) {
+    .hero-grid {
+      grid-template-columns: 1fr !important;
+    }
+    .hero-visual {
+      display: none !important;
+    }
+  }
+
+  /* ── Botón primario: letra blanca ── */
+  .btn-primary span {
+    color: #ffffff !important;
+  }
+</style>

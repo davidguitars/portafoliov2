@@ -1,51 +1,105 @@
 ---
-import Bars from "./Bars.astro"
-
-import svgUnderline from '../assets/underline.svg'
-import arrowCard from '../assets/arrow-card.svg'
-
 const portfolio = [
-  { 
-    name: 'Portfolio design', desc: `UI design - User research - webflow development`,
-    cover: `https://images.pexels.com/photos/1051075/pexels-photo-1051075.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2`
+  {
+    num: "01",
+    name: "Estudio Roca",
+    tags: "UX Research · UI Design · Webflow",
+    cover: `/images/estudioroca desktop.png`,
+    link: "https://estudioroca.cl/",
+    year: "2024",
   },
-  { 
-    name: 'Portfolio design', desc: `UI design - User research - webflow development`,
-    cover: `https://images.pexels.com/photos/2303781/pexels-photo-2303781.jpeg?auto=compress&cs=tinysrgb&w=1600`
+  {
+    num: "02",
+    name: "Vetercalm",
+    tags: "UI Design · Desarrollo · WordPress",
+    cover: `/images/vetercalm.jpeg`,
+    link: "https://vetercalm.cl/",
+    year: "2025",
   },
-  { 
-    name: 'Portfolio design', desc: `UI design - User research - webflow development`,
-    cover: `https://images.pexels.com/photos/441963/pexels-photo-441963.jpeg?auto=compress&cs=tinysrgb&w=1600`
+  {
+    num: "03",
+    name: "Decorafácil",
+    tags: "UI Design · Shopify · E-commerce",
+    cover: `/images/decorafacil.jpeg`,
+    link: "https://decorafacil.cl/",
+    year: "2026",
+    external: true,
   },
-  { 
-    name: 'Portfolio design', desc: `UI design - User research - webflow development`,
-    cover: `https://images.pexels.com/photos/245240/pexels-photo-245240.jpeg?auto=compress&cs=tinysrgb&w=1600`
+  {
+    num: "04",
+    name: "Lira Project",
+    tags: "UX Research · WordPress · Branding",
+    cover: `/images/liraproject.jpeg`,
+    link: "https://liraproject.cl/",
+    year: "2025",
+    external: true,
   },
-]
+];
 ---
 
+<section id="work" style="border-bottom: 1px solid var(--border);">
+  <div style="max-width: var(--max-w); margin: 0 auto;">
 
-<section class="py-25 space-y-10 px-5" id="work">
-    <div class="max-w-md mx-auto relative ">
-      <h1 class="text-4xl font-medium text-center">My Portfolio</h1>
-      <img src={svgUnderline.src} alt="arrow" width="140" class="absolute left-50 -bottom-1" />
+    <!-- Header de sección -->
+    <div style="display: flex; align-items: center; gap: 1rem; padding: 2.5rem 1.5rem; border-bottom: 1px solid var(--border); justify-content: space-between;">
+      <div style="display: flex; align-items: center; gap: 1rem;">
+        <div style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--ink-faint);">[03]</div>
+        <h2 style="font-size: 1.1rem; font-weight: 500; font-family: var(--font-mono); color: var(--ink);">Trabajo seleccionado</h2>
+      </div>
+      <div class="label-tag">{portfolio.length} proyectos</div>
     </div>
-  
-    <div class="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10"> 
-      {portfolio.map(item => ( 
-        <a href="#" class="flex flex-col bg-white p-5 group relative transition-all duration-200 hover:shadow-[4px_4px_0px_rgba(0,0,0,0.3)]">
-          <div class="w-full h-[200px] overflow-hidden border-2">
-           <img src={item.cover} alt="" class="w-full h-full object-cover" />
+
+    <!-- Grid de proyectos -->
+    <div style="display: grid; grid-template-columns: 1fr 1fr;" class="works-grid">
+      {portfolio.map((item, i) => (
+        <a
+          href={item.link}
+          target={item.external ? "_blank" : "_self"}
+          rel={item.external ? "noopener noreferrer" : undefined}
+          style={`
+            display: block;
+            padding: 1.75rem 1.5rem;
+            ${i % 2 === 0 ? 'border-right: 1px solid var(--border);' : ''}
+            ${i < 2 ? 'border-bottom: 1px solid var(--border);' : ''}
+            transition: background 0.15s ease;
+          `}
+          class="work-card"
+        >
+          <!-- Imagen -->
+          <div style="width: 100%; aspect-ratio: 16/9; overflow: hidden; border: 1px solid var(--border); margin-bottom: 1.25rem; background: var(--bg-surface);">
+            <img
+              src={item.cover}
+              alt={item.name}
+              style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; display: block;"
+              class="work-img"
+            />
           </div>
-          <div class="space-y-1 pt-4">
-            <div class="flex pr-2">
-              <h2 class="text-xl font-medium flex-1">{item.name}</h2>
-              <img src={arrowCard.src} alt="arrow" width="25" />
+
+          <!-- Info -->
+          <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem;">
+            <div>
+              <div style="font-family: var(--font-mono); font-size: 0.6rem; color: var(--ink-faint); margin-bottom: 0.35rem;">[{item.num}] · {item.year}</div>
+              <h3 style="font-family: var(--font-mono); font-size: 1rem; font-weight: 500; color: var(--ink); margin-bottom: 0.3rem;">{item.name}</h3>
+              <p style="font-size: 0.78rem; color: var(--ink-faint); font-family: var(--font-mono);">{item.tags}</p>
             </div>
-            <p class="mr-20">{item.desc}</p>
+            <div style="width: 28px; height: 28px; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1rem; font-family: var(--font-mono); font-size: 0.9rem; color: var(--ink-muted); transition: background 0.15s ease, color 0.15s ease;" class="work-arrow">
+              {item.external ? '↗' : '→'}
+            </div>
           </div>
-          <Bars />
         </a>
       ))}
     </div>
+
+  </div>
 </section>
+
+<style>
+  .work-card:hover { background: var(--bg-surface); }
+  .work-card:hover .work-img { transform: scale(1.03); }
+  .work-card:hover .work-arrow { background: var(--ink); color: var(--accent); border-color: var(--ink); }
+
+  @media (max-width: 768px) {
+    .works-grid { grid-template-columns: 1fr !important; }
+    .works-grid a { border-right: none !important; }
+  }
+</style>

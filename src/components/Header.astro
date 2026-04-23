@@ -1,94 +1,111 @@
 ---
-import logoStar from '../assets/logo-star.svg'
-import svgPinkStar from '../assets/pink-star.svg'
-import { author, buy } from '../sample'
+import { author } from "../sample";
 
 const links = [
-    { name: 'About', path: '/', target: '_self' },
-    { name: 'Blog', path: '/blog/', target: '_self' },
-    { name: 'Hire Me', path: '/#', target: '_self' },
-]
+  { name: "Trabajo",    path: "/#work" },
+  { name: "Servicios",  path: "/#servicios" },
+  { name: "Blog",       path: "/blog/" },
+  { name: "Contacto",   path: "/#contacto" },
+];
 
-const { pathname } = Astro.url
+const { pathname } = Astro.url;
 ---
 
-<header class="relative border-b-3 p-7 overflow-hidden">
-    <img src={svgPinkStar.src} alt="svg" width="80" class="absolute -right-9 -top-4" />
-    <img src={svgPinkStar.src} alt="svg" width="80" class="absolute -left-8 -bottom-5 hidden md:block" />
+<header style="border-bottom: 1px solid var(--border); background: var(--bg); position: sticky; top: 0; z-index: 50; backdrop-filter: blur(8px);">
+  <div style="max-width: var(--max-w); margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; height: 56px;">
 
+    <!-- Logo / nombre -->
+    <a href="/" style="font-family: var(--font-mono); font-size: 0.85rem; font-weight: 600; letter-spacing: 0.04em; color: var(--ink); display: flex; align-items: center; gap: 0.6rem; flex: 1;">
+      <span style="display: inline-block; width: 8px; height: 8px; background: var(--accent); border: 1.5px solid var(--ink);"></span>
+      {author.nickname}
+    </a>
 
-    <div class="flex border-3 border-black bg-white max-w-[310px] md:max-w-xl m-auto relative z-10">
-        <!-- top boxes -->
-        <div class="size-2 bg-white border-2 border-black absolute -top-2 -right-2"></div>
-        <div class="size-2 bg-white border-2 border-black absolute -top-2 -left-2"></div>
-
-        <!-- bottom boxes -->
-        <div class="size-2 bg-white border-2 border-black absolute -bottom-2 -left-2"></div>
-        <div class="size-2 bg-white border-2 border-black absolute -bottom-2 -right-2"></div>
-    
-        <nav class="flex w-full items-center p-2 md:p-0">
-            <div class="flex-1 font-bold">
-                <a href="/" class="flex items-center gap-2 pl-3">
-                    <img src={logoStar.src} alt="logo" width="26" /> {author.nickname}
-                </a>
-            </div>
-            <a href="#" class="flex md:hidden" id="menu-open">
-                <i class="ri-menu-2-line text-2xl"></i>
-            </a>
-            <ul class="hidden md:flex">
-                {links.map(item => ( 
-                    <li class="border-l-2 border-black p-3 py-4">
-                        <a href={item.path} target={item.target} class="whitespace-nowrap relative flex items-center before:absolute before:left-0 before:bottom-1 before:h-[8px] before:w-0 before:bg-[var(--yellow)] before:transition-all before:duration-300 hover:before:w-full">
-                            <span class="relative z-5">{item.name} {pathname == item.path ? '//' : ''}</span>
-                        </a>
-                    </li>
-                ))}
-            </ul>
-        </nav>
-    </div>
-  </header>
-
-  <div class="block md:hidden fixed left-0 top-0 h-full w-full bg-white z-20 p-3 transition-all duration-300 -translate-x-[100%]" id="menu-content">
-    <div class="flex p-6">
-        <h3 class="flex-1 font-bold uppercase">Menu</h3>
-        <a href="#" id="menu-close">               
-           <i class="ri-close-line text-3xl"></i>
+    <!-- Nav desktop -->
+    <nav class="nav-desktop" style="display: flex; align-items: center; gap: 0;">
+      {links.map((item, i) => (
+        <a
+          href={item.path}
+          style={`
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: ${pathname === item.path ? 'var(--ink)' : 'var(--ink-muted)'};
+            padding: 0 1.1rem;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            border-left: 1px solid var(--border);
+            transition: color 0.15s ease, background 0.15s ease;
+            position: relative;
+          `}
+          class="nav-link"
+        >
+          {item.name}
         </a>
-    </div>
-    <ul class="flex flex-col justify-center items-center gap-4 md:hidden">
-        {links.map(item => ( 
-            <li class="py-3">
-                <a href={item.path} target={item.target} class="p-3 whitespace-nowrap text-2xl font-bold">
-                    {item.name} {pathname == item.path ? '//' : ''}
-                </a>
-            </li>
-        ))}
-    </ul>
-  </div>
+      ))}
+    </nav>
 
+    <!-- Hamburger mobile -->
+    <button id="menu-open" aria-label="Abrir menú" style="display: none; background: none; border: none; cursor: pointer; padding: 0.5rem; color: var(--ink);" class="menu-btn-mobile">
+      <i class="ri-menu-line" style="font-size: 1.25rem;"></i>
+    </button>
+  </div>
+</header>
+
+<!-- Menu mobile -->
+<div id="menu-content" style="
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  z-index: 100;
+  transform: translateX(-100%);
+  transition: transform 0.25s ease;
+  display: flex;
+  flex-direction: column;
+">
+  <div style="display: flex; align-items: center; padding: 1rem 1.5rem; border-bottom: 1px solid var(--border); height: 56px;">
+    <span style="font-family: var(--font-mono); font-size: 0.85rem; font-weight: 600; flex: 1; color: var(--ink);">{author.nickname}</span>
+    <button id="menu-close" aria-label="Cerrar menú" style="background: none; border: none; cursor: pointer; color: var(--ink);">
+      <i class="ri-close-line" style="font-size: 1.4rem;"></i>
+    </button>
+  </div>
+  <nav style="flex: 1; display: flex; flex-direction: column; padding: 2rem 0;">
+    {links.map((item, i) => (
+      <a
+        href={item.path}
+        style="font-family: var(--font-mono); font-size: 1.5rem; font-weight: 500; color: var(--ink); padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between;"
+      >
+        <span style="font-size: 0.65rem; color: var(--ink-faint); margin-right: 1rem;">{String(i + 1).padStart(2, '0')}</span>
+        {item.name}
+        <span style="font-family: var(--font-mono); color: var(--ink-faint);">→</span>
+      </a>
+    ))}
+  </nav>
+</div>
+
+<style>
+  @media (max-width: 768qpx) {
+    .nav-desktop { display: none !important; }
+    .menu-btn-mobile { display: flex !important; }
+  }
+  .nav-link:hover {
+    color: var(--ink) !important;
+    background: var(--bg-surface);
+  }
+</style>
 
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-    const menuContent = document.querySelector('#menu-content') 
-    const menuOpen = document.querySelector('#menu-open') 
-    const menuClose = document.querySelector('#menu-close') 
+  document.addEventListener("DOMContentLoaded", () => {
+    const content = document.getElementById("menu-content");
+    const open = document.getElementById("menu-open");
+    const close = document.getElementById("menu-close");
 
-
-    menuOpen?.addEventListener('click', (e) => {
-        e.preventDefault()
-        menuContent?.classList.remove('-translate-x-[100%]')
-    })
-
-    menuClose?.addEventListener('click', (e) => {
-        e.preventDefault()
-        menuContent?.classList.add('-translate-x-[100%]')
-    })
-
-
-    menuContent?.querySelectorAll('li a').forEach(item => {
-        item.addEventListener('click', (e) => {
-            menuContent?.classList.add('-translate-x-[100%]')
-        })
-    })
-})
+    open?.addEventListener("click", () => content?.style.setProperty("transform", "translateX(0)"));
+    close?.addEventListener("click", () => content?.style.setProperty("transform", "translateX(-100%)"));
+    content?.querySelectorAll("a").forEach(a =>
+      a.addEventListener("click", () => content?.style.setProperty("transform", "translateX(-100%)"))
+    );
+  });
 </script>

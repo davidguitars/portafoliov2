@@ -1,44 +1,288 @@
 ---
-import '../styles/global.css'
-import { Image } from 'astro:assets';
-import Layout from '../layouts/Layout.astro';
-
-import AppHeader from './Header.astro';
-import AppFooter from './Footer.astro';
-import CallToAction from './CallToAction.astro';
-
-const styleSheet = {
-    actions: 'text-gray-500 flex items-center gap-2 hover:text-gray-700',
-}
+import "../styles/global.css";
+import Layout from "../layouts/Layout.astro";
+import AppHeader from "./Header.astro";
+import AppFooter from "./Footer.astro";
 
 const { frontmatter } = Astro.props;
 ---
 
-<Layout>
+<Layout title={`${frontmatter.title} — Blog`}>
+  <AppHeader />
 
-<AppHeader />
-
-<section class="mb-30 p-3">
-    <div class="max-w-3xl mx-auto p-3 bg-white flex flex-col gap-7 border-3 mt-10">
-        <Image src={frontmatter.image.url} alt="Head" width={100} height={100} class="w-full border-2" />
-        <h1 class="title text-4xl font-black">{frontmatter.title}</h1>
-
-        <div class="flex flex-col">
-            <div class="flex border-t border-b border-gray-100 mb-5 py-4">
-                <div class="flex-1 flex gap-6">
-                    <a href="#" class={styleSheet.actions}><i class="ri-thumb-up-line text-xl"></i> {frontmatter.likes}</a>
-                    <a href="#" class={styleSheet.actions}><i class="ri-chat-1-line text-xl"></i> {frontmatter.comments}</a>
+  <main>
+    <!-- Hero del post -->
+    <div style="border-bottom: 1px solid var(--border); overflow: hidden;">
+      <div
+        style="max-width: var(--max-w); margin: 0 auto; padding: 3rem 1.5rem 0; display: grid; grid-template-columns: 2fr 1fr; gap: 3rem; align-items: end;"
+        class="post-hero-grid">
+        <div style="padding-bottom: 3rem;">
+          <!-- Tags -->
+          <div
+            style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.25rem;">
+            {
+              frontmatter.tags
+                ?.filter(Boolean)
+                .map((tag: string) => (
+                  <span style="font-family: var(--font-mono); font-size: 0.65rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); border: 1px solid var(--border); padding: 0.2rem 0.6rem;">
+                    {tag}
+                  </span>
+                ))
+            }
+          </div>
+          <h1
+            style="font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 500; color: var(--ink); letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 1.5rem;">
+            {frontmatter.title}
+          </h1>
+          <div
+            style="display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;">
+            <div style="display: flex; align-items: center; gap: 0.6rem;">
+              <div
+                style="width: 28px; height: 28px; background: var(--ink); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <span
+                  style="font-family: var(--font-mono); font-size: 0.55rem; font-weight: 600; color: var(--accent);"
+                  >DU</span
+                >
+              </div>
+              <div>
+                <div
+                  style="font-family: var(--font-mono); font-size: 0.72rem; font-weight: 500; color: var(--ink);">
+                  David Urdaneta
                 </div>
-                <div class="flex gap-6">
-                    <a href="#" class={styleSheet.actions}><i class="ri-bookmark-line text-xl"></i> </a>
-                    <a href="#" class={styleSheet.actions}><i class="ri-share-forward-box-line text-xl"></i> </a>
+                <div
+                  style="font-family: var(--font-mono); font-size: 0.63rem; color: var(--ink-faint);">
+                  {frontmatter.pubDate}
                 </div>
+              </div>
             </div>
-        <slot />
+            <a
+              href="/blog/"
+              style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-muted); border: 1px solid var(--border); padding: 0.3rem 0.8rem; transition: border-color 0.15s, color 0.15s;"
+              class="back-link">
+              ← Volver al blog
+            </a>
+          </div>
+        </div>
+        <!-- Imagen recortada que baja hasta el borde -->
+        <div
+          style="height: 280px; overflow: hidden; border: 1px solid var(--border); border-bottom: none; align-self: end;">
+          <img
+            src={frontmatter.image?.url}
+            alt={frontmatter.title}
+            style="width: 100%; height: 100%; object-fit: cover; display: block;"
+          />
+        </div>
+      </div>
     </div>
-</section>
 
-<CallToAction />
-<AppFooter />
+    <!-- Cuerpo del artículo -->
+    <div
+      style="max-width: var(--max-w); margin: 0 auto; padding: 4rem 1.5rem; display: grid; grid-template-columns: 1fr 280px; gap: 4rem; align-items: start;"
+      class="post-body-grid">
+      <!-- Contenido markdown -->
+      <article class="prose-editorial">
+        <slot />
+      </article>
 
+      <!-- Sidebar -->
+      <aside
+        style="position: sticky; top: 80px; display: flex; flex-direction: column; gap: 1rem;">
+        <!-- CTA Hostinger -->
+        <div
+          style="border: 1.5px solid var(--ink); padding: 1.5rem; background: var(--bg-dark); position: relative;">
+          <div
+            style="position: absolute; top: -1px; left: 1.5rem; background: var(--accent); padding: 0.2rem 0.6rem;">
+            <span
+              style="font-family: var(--font-mono); font-size: 0.6rem; font-weight: 600; color: var(--ink); letter-spacing: 0.08em; text-transform: uppercase;"
+              >Oferta exclusiva</span
+            >
+          </div>
+          <div style="margin-top: 0.75rem;">
+            <p
+              style="font-family: var(--font-mono); font-size: 1.4rem; font-weight: 600; color: var(--accent); line-height: 1; margin-bottom: 0.4rem;">
+              75% OFF
+            </p>
+            <p
+              style="font-family: var(--font-mono); font-size: 0.78rem; font-weight: 500; color: #F5F4F0; margin-bottom: 0.6rem;">
+              Hosting en Hostinger
+            </p>
+            <p
+              style="font-size: 0.78rem; color: #6B6A65; line-height: 1.6; margin-bottom: 1.25rem;">
+              El servidor que uso con mis clientes. Precio imbatible,
+              rendimiento real. Con mi enlace obtienes el 75% de descuento.
+            </p>
+            <a
+              href="https://www.hostinger.com/es?REFERRALCODE=1DAVID78"
+              target="_blank"
+              rel="noopener noreferrer"
+              style="display: flex; align-items: center; justify-content: space-between; background: var(--accent); color: var(--ink); padding: 0.75rem 1rem; font-family: var(--font-mono); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; transition: opacity 0.15s;"
+              class="hostinger-btn">
+              Obtener descuento <span>→</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Compartir -->
+        <div style="border: 1px solid var(--border); padding: 1.25rem;">
+          <div class="label-tag" style="margin-bottom: 0.75rem;">Compartir</div>
+          <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+            <a
+              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(frontmatter.title)}&url=${encodeURIComponent("https://tudominio.com")}`}
+              target="_blank"
+              style="display: flex; align-items: center; gap: 0.5rem; font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-muted); padding: 0.5rem 0.75rem; border: 1px solid var(--border); transition: border-color 0.15s, color 0.15s;"
+              class="share-link">
+              <i class="ri-twitter-x-line"></i> Twitter / X
+            </a>
+            <a
+              href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent("https://tudominio.com")}`}
+              target="_blank"
+              style="display: flex; align-items: center; gap: 0.5rem; font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-muted); padding: 0.5rem 0.75rem; border: 1px solid var(--border); transition: border-color 0.15s, color 0.15s;"
+              class="share-link">
+              <i class="ri-linkedin-line"></i> LinkedIn
+            </a>
+          </div>
+        </div>
+
+        <!-- Volver -->
+        <a
+          href="/blog/"
+          style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-muted); padding: 0.75rem; border: 1px solid var(--border); transition: border-color 0.15s, color 0.15s; text-decoration: none;"
+          class="back-link">
+          ← Volver al blog
+        </a>
+      </aside>
+    </div>
+
+    <!-- CTA banner inferior Hostinger -->
+    <div
+      style="border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--bg-dark);">
+      <div
+        style="max-width: var(--max-w); margin: 0 auto; padding: 2.5rem 1.5rem; display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap;">
+        <div>
+          <div class="label-tag" style="color: #6B6A65; margin-bottom: 0.5rem;">
+            Recomendado por David
+          </div>
+          <p
+            style="font-family: var(--font-mono); font-size: 1rem; font-weight: 500; color: #F5F4F0; margin-bottom: 0.3rem;">
+            Hostinger — El mejor hosting precio/calidad del mercado
+          </p>
+          <p style="font-size: 0.82rem; color: #6B6A65;">
+            Lanza tu sitio web hoy con hasta <strong
+              style="color: var(--accent);">75% de descuento</strong
+            > usando mi enlace de referido.
+          </p>
+        </div>
+        <a
+          href="https://www.hostinger.com/es?REFERRALCODE=1DAVID78"
+          target="_blank"
+          rel="noopener noreferrer"
+          style="display: inline-flex; align-items: center; gap: 0.5rem; background: var(--accent); color: var(--ink); padding: 0.85rem 1.75rem; font-family: var(--font-mono); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; white-space: nowrap; flex-shrink: 0; transition: opacity 0.15s;"
+          class="hostinger-btn">
+          Obtener 75% OFF →
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <AppFooter />
 </Layout>
+
+<style>
+  /* ── Tipografía editorial para el markdown ── */
+  .prose-editorial :global(h2) {
+    font-family: var(--font-mono);
+    font-size: 1.35rem;
+    font-weight: 500;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+    margin: 2.5rem 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .prose-editorial :global(h3) {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--ink);
+    margin: 1.75rem 0 0.6rem;
+  }
+  .prose-editorial :global(p) {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: var(--ink-muted);
+    margin-bottom: 1.25rem;
+    max-width: 68ch;
+  }
+  .prose-editorial :global(ul),
+  .prose-editorial :global(ol) {
+    padding-left: 1.25rem;
+    margin-bottom: 1.25rem;
+  }
+  .prose-editorial :global(li) {
+    font-size: 0.92rem;
+    line-height: 1.75;
+    color: var(--ink-muted);
+    margin-bottom: 0.4rem;
+  }
+  .prose-editorial :global(strong) {
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .prose-editorial :global(code) {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    padding: 0.1em 0.4em;
+    color: var(--ink);
+  }
+  .prose-editorial :global(blockquote) {
+    border-left: 3px solid var(--accent);
+    padding: 0.75rem 1.25rem;
+    margin: 1.5rem 0;
+    background: var(--bg-surface);
+  }
+  .prose-editorial :global(blockquote p) {
+    margin: 0;
+    font-style: italic;
+    color: var(--ink);
+  }
+  .prose-editorial :global(a) {
+    color: var(--ink);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .prose-editorial :global(hr) {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 2rem 0;
+  }
+
+  /* Hover states */
+  .back-link:hover {
+    border-color: var(--ink) !important;
+    color: var(--ink) !important;
+  }
+  .share-link:hover {
+    border-color: var(--ink) !important;
+    color: var(--ink) !important;
+  }
+  .hostinger-btn:hover {
+    opacity: 0.88;
+  }
+
+  @media (max-width: 768px) {
+    .post-hero-grid {
+      grid-template-columns: 1fr !important;
+    }
+    .post-hero-grid > div:last-child {
+      display: none !important;
+    }
+    .post-body-grid {
+      grid-template-columns: 1fr !important;
+    }
+    .post-body-grid aside {
+      position: static !important;
+    }
+  }
+</style>
