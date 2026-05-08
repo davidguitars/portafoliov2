@@ -2,36 +2,45 @@
 import { author } from "../sample";
 
 const links = [
-  { name: "Trabajo",    path: "/#work" },
-  { name: "Servicios",  path: "/#servicios" },
-  { name: "Blog",       path: "/blog/" },
-  { name: "Contacto",   path: "/#contacto" },
+  { name: "Trabajo", path: "/#work" },
+  { name: "Servicios", path: "/#servicios" },
+  { name: "Blog", path: "/blog/" },
+  { name: "Soporte", path: "/soporte-urgente", accent: true },
+  { name: "Contacto", path: "/#contacto" },
 ];
 
 const { pathname } = Astro.url;
 ---
 
-<header style="border-bottom: 1px solid var(--border); background: var(--bg); position: sticky; top: 0; z-index: 50; backdrop-filter: blur(8px);">
-  <div style="max-width: var(--max-w); margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; height: 56px;">
-
+<header
+  style="border-bottom: 1px solid var(--border); background: var(--bg); position: sticky; top: 0; z-index: 50; backdrop-filter: blur(8px);">
+  <div
+    style="max-width: var(--max-w); margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; height: 56px;">
     <!-- Logo / nombre -->
-    <a href="/" style="font-family: var(--font-mono); font-size: 0.85rem; font-weight: 600; letter-spacing: 0.04em; color: var(--ink); display: flex; align-items: center; gap: 0.6rem; flex: 1;">
-      <span style="display: inline-block; width: 8px; height: 8px; background: var(--accent); border: 1.5px solid var(--ink);"></span>
+    <a
+      href="/"
+      style="font-family: var(--font-mono); font-size: 0.85rem; font-weight: 600; letter-spacing: 0.04em; color: var(--ink); display: flex; align-items: center; gap: 0.6rem; flex: 1;">
+      <span
+        style="display: inline-block; width: 8px; height: 8px; background: var(--accent); border: 1.5px solid var(--ink);"
+      ></span>
       {author.nickname}
     </a>
 
     <!-- Nav desktop -->
-    <nav class="nav-desktop" style="display: flex; align-items: center; gap: 0;">
-      {links.map((item, i) => (
-        <a
-          href={item.path}
-          style={`
+    <nav
+      class="nav-desktop"
+      style="display: flex; align-items: center; gap: 0;">
+      {
+        links.map((item, i) => (
+          <a
+            href={item.path}
+            style={`
             font-family: var(--font-mono);
             font-size: 0.72rem;
             font-weight: 500;
             letter-spacing: 0.08em;
             text-transform: uppercase;
-            color: ${pathname === item.path ? 'var(--ink)' : 'var(--ink-muted)'};
+            color: ${item.accent ? "#CC2222" : pathname === item.path ? "var(--ink)" : "var(--ink-muted)"};
             padding: 0 1.1rem;
             height: 56px;
             display: flex;
@@ -40,22 +49,28 @@ const { pathname } = Astro.url;
             transition: color 0.15s ease, background 0.15s ease;
             position: relative;
           `}
-          class="nav-link"
-        >
-          {item.name}
-        </a>
-      ))}
+            class="nav-link">
+            {item.name}
+          </a>
+        ))
+      }
     </nav>
 
     <!-- Hamburger mobile -->
-    <button id="menu-open" aria-label="Abrir menú" style="display: none; background: none; border: none; cursor: pointer; padding: 0.5rem; color: var(--ink);" class="menu-btn-mobile">
+    <button
+      id="menu-open"
+      aria-label="Abrir menú"
+      style="display: none; background: none; border: none; cursor: pointer; padding: 0.5rem; color: var(--ink);"
+      class="menu-btn-mobile">
       <i class="ri-menu-line" style="font-size: 1.25rem;"></i>
     </button>
   </div>
 </header>
 
 <!-- Menu mobile -->
-<div id="menu-content" style="
+<div
+  id="menu-content"
+  style="
   position: fixed;
   inset: 0;
   background: var(--bg);
@@ -65,30 +80,46 @@ const { pathname } = Astro.url;
   display: flex;
   flex-direction: column;
 ">
-  <div style="display: flex; align-items: center; padding: 1rem 1.5rem; border-bottom: 1px solid var(--border); height: 56px;">
-    <span style="font-family: var(--font-mono); font-size: 0.85rem; font-weight: 600; flex: 1; color: var(--ink);">{author.nickname}</span>
-    <button id="menu-close" aria-label="Cerrar menú" style="background: none; border: none; cursor: pointer; color: var(--ink);">
+  <div
+    style="display: flex; align-items: center; padding: 1rem 1.5rem; border-bottom: 1px solid var(--border); height: 56px;">
+    <span
+      style="font-family: var(--font-mono); font-size: 0.85rem; font-weight: 600; flex: 1; color: var(--ink);"
+      >{author.nickname}</span
+    >
+    <button
+      id="menu-close"
+      aria-label="Cerrar menú"
+      style="background: none; border: none; cursor: pointer; color: var(--ink);">
       <i class="ri-close-line" style="font-size: 1.4rem;"></i>
     </button>
   </div>
   <nav style="flex: 1; display: flex; flex-direction: column; padding: 2rem 0;">
-    {links.map((item, i) => (
-      <a
-        href={item.path}
-        style="font-family: var(--font-mono); font-size: 1.5rem; font-weight: 500; color: var(--ink); padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between;"
-      >
-        <span style="font-size: 0.65rem; color: var(--ink-faint); margin-right: 1rem;">{String(i + 1).padStart(2, '0')}</span>
-        {item.name}
-        <span style="font-family: var(--font-mono); color: var(--ink-faint);">→</span>
-      </a>
-    ))}
+    {
+      links.map((item, i) => (
+        <a
+          href={item.path}
+          style="font-family: var(--font-mono); font-size: 1.5rem; font-weight: 500; color: var(--ink); padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between;">
+          <span style="font-size: 0.65rem; color: var(--ink-faint); margin-right: 1rem;">
+            {String(i + 1).padStart(2, "0")}
+          </span>
+          {item.name}
+          <span style="font-family: var(--font-mono); color: var(--ink-faint);">
+            →
+          </span>
+        </a>
+      ))
+    }
   </nav>
 </div>
 
 <style>
-  @media (max-width: 768qpx) {
-    .nav-desktop { display: none !important; }
-    .menu-btn-mobile { display: flex !important; }
+  @media (max-width: 768px) {
+    .nav-desktop {
+      display: none !important;
+    }
+    .menu-btn-mobile {
+      display: flex !important;
+    }
   }
   .nav-link:hover {
     color: var(--ink) !important;
@@ -102,10 +133,18 @@ const { pathname } = Astro.url;
     const open = document.getElementById("menu-open");
     const close = document.getElementById("menu-close");
 
-    open?.addEventListener("click", () => content?.style.setProperty("transform", "translateX(0)"));
-    close?.addEventListener("click", () => content?.style.setProperty("transform", "translateX(-100%)"));
-    content?.querySelectorAll("a").forEach(a =>
-      a.addEventListener("click", () => content?.style.setProperty("transform", "translateX(-100%)"))
+    open?.addEventListener("click", () =>
+      content?.style.setProperty("transform", "translateX(0)"),
     );
+    close?.addEventListener("click", () =>
+      content?.style.setProperty("transform", "translateX(-100%)"),
+    );
+    content
+      ?.querySelectorAll("a")
+      .forEach((a) =>
+        a.addEventListener("click", () =>
+          content?.style.setProperty("transform", "translateX(-100%)"),
+        ),
+      );
   });
 </script>

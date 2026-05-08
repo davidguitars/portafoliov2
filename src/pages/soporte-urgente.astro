@@ -1,0 +1,701 @@
+---
+import "../styles/global.css";
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+const WA_NUMBER = "56958679252";
+const WA_BASE = `https://wa.me/${WA_NUMBER}`;
+const EMAIL = "contacto@davidurdaneta.com";
+
+const services = [
+  {
+    num: "01",
+    name: "Web caída o inaccesible",
+    desc: "Error 500, 404, hosting caído, dominio vencido, DNS mal configurado",
+    price: "$99.990 CLP",
+    time: "< 2 horas",
+    waText: "mi+web+está+caída",
+  },
+  {
+    num: "02",
+    name: "Sitio hackeado o con malware",
+    desc: "Limpieza completa, restauración, refuerzo de seguridad y backups preventivos",
+    price: "$199.990 CLP",
+    time: "< 4 horas",
+    waText: "mi+sitio+fue+hackeado",
+  },
+  {
+    num: "03",
+    name: "WordPress roto por actualización",
+    desc: "Plugin en conflicto, pantalla blanca, admin inaccesible, tema roto",
+    price: "$149.990 CLP",
+    time: "< 2 horas",
+    waText: "mi+WordPress+está+roto",
+  },
+  {
+    num: "04",
+    name: "Migración urgente de hosting",
+    desc: "Cambio de servidor sin downtime, SSL y correos corporativos incluidos",
+    price: "$149.990 CLP",
+    time: "< 24 horas",
+    waText: "necesito+migración+urgente",
+  },
+  {
+    num: "05",
+    name: "SSL expirado o formularios rotos",
+    desc: "Certificados, SMTP, integraciones caídas, errores en pasarela de pago",
+    price: "$79.990 CLP",
+    time: "< 2 horas",
+    waText: "ssl+o+formulario+roto",
+  },
+];
+
+const plans = [
+  {
+    tag: "Emergencia básica",
+    name: "Web caída / SSL",
+    price: "$99.990 CLP",
+    featured: false,
+    desc: "Hosting, DNS, dominio, error 500/404 o certificado SSL expirado.",
+    features: [
+      "Diagnóstico en < 30 min",
+      "Resolución en < 2 horas",
+      "Informe post-solución",
+      "Sin cobro si no hay solución",
+    ],
+    waText: "Hola+David,+necesito+soporte+urgente+básico",
+  },
+  {
+    tag: "★ Más solicitado",
+    name: "WordPress / CMS roto",
+    price: "$149.990 CLP",
+    featured: true,
+    desc: "Plugin roto, pantalla blanca, admin caído, tema roto por actualización.",
+    features: [
+      "Diagnóstico en < 30 min",
+      "Resolución en < 3 horas",
+      "Backup preventivo incluido",
+      "Informe completo post-solución",
+      "Sin cobro si no hay solución",
+    ],
+    waText: "Hola+David,+mi+WordPress+está+roto+y+necesito+ayuda+urgente",
+  },
+  {
+    tag: "Caso crítico",
+    name: "Sitio hackeado",
+    price: "$199.990 CLP",
+    featured: false,
+    desc: "Limpieza completa de malware, recuperación total y blindaje de seguridad.",
+    features: [
+      "Diagnóstico inmediato",
+      "Limpieza completa de malware",
+      "Refuerzo de seguridad",
+      "Backup post-limpieza",
+      "Monitoreo 48h posterior",
+    ],
+    waText: "Hola+David,+creo+que+mi+sitio+fue+hackeado",
+  },
+];
+
+const faqs = [
+  {
+    q: "¿Qué pasa si no puedes solucionar el problema?",
+    a: "Si después del diagnóstico no encuentro la solución o está fuera de mi alcance, no cobro nada. Te digo exactamente qué encontré y te recomiendo el siguiente paso. Sin vueltas.",
+  },
+  {
+    q: "¿Cómo me contacto?",
+    a: "Nada de formularios. Lo más rápido es WhatsApp — eso me permite responderte en menos de 2 horas. También puedes escribir al email si prefieres.",
+  },
+  {
+    q: "¿Trabajas solo con Chile o también con otros países?",
+    a: "Trabajo con Chile, España y Portugal principalmente. Estoy basado en Porto (Portugal) y Santiago (Chile). Para el resto de Latinoamérica, depende del problema — consúltame.",
+  },
+  {
+    q: "¿Con qué plataformas trabajas?",
+    a: "WordPress (80% de los casos), Webflow, Shopify, Astro y cualquier sitio en hosting compartido o VPS. También manejo DNS, cPanel, Cloudflare y los paneles más usados.",
+  },
+  {
+    q: "¿Cómo se hace el pago?",
+    a: "Transferencia bancaria en pesos chilenos, PayPal o Wise. Cobro el 50% al confirmar el trabajo y el 50% al entregarlo. Para problemas menores a $100, el pago es completo al inicio.",
+  },
+];
+
+const ticker = [
+  "WEB CAÍDA",
+  "WORDPRESS ROTO",
+  "SITIO HACKEADO",
+  "ERROR 500",
+  "MIGRACIÓN URGENTE",
+  "DOMINIO CADUCADO",
+  "PLUGIN ROTO",
+  "SSL EXPIRADO",
+];
+---
+
+<Layout title="Soporte Web Urgente — David Urdaneta">
+  <Header />
+
+  <main>
+    <!-- ── HERO ─────────────────────────────────────────────── -->
+    <section
+      style="border-bottom: 1px solid var(--border); background: var(--bg-dark);">
+      <div
+        style="max-width: var(--max-w); margin: 0 auto; padding: 5rem 1.5rem 4rem; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;"
+        class="soporte-hero-grid">
+        <div>
+          <div
+            style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem;">
+            <span class="pulse-red"></span>
+            <span
+              style="font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: #6B6A65;"
+              >Disponible ahora · Respuesta en &lt; 2 horas</span
+            >
+          </div>
+          <h1
+            style="font-size: clamp(2.8rem, 6vw, 4.8rem); font-weight: 500; line-height: 1.0; letter-spacing: -0.03em; color: #F5F4F0; margin-bottom: 1.5rem;">
+            ¿Tu web<br />está <span style="color: #FF4444;">caída?</span><br
+            />La tengo<br />en pie.
+          </h1>
+          <p
+            style="font-size: 1rem; line-height: 1.7; color: #6B6A65; max-width: 36ch; margin-bottom: 2.5rem;">
+            Diagnóstico en <strong style="color: #F5F4F0;">30 minutos</strong>,
+            solución en <strong style="color: #F5F4F0;">menos de 2 horas</strong
+            >. Sin formularios. Sin tickets. Un profesional real, ahora.
+          </p>
+          <div
+            style="display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.25rem;">
+            <a
+              href={`${WA_BASE}?text=Hola+David,+mi+web+está+caída+y+necesito+ayuda+urgente`}
+              target="_blank"
+              rel="noopener"
+              style="display: inline-flex; align-items: center; gap: 0.5rem; background: #FF4444; color: #fff; font-family: var(--font-mono); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.85rem 1.5rem; text-decoration: none; transition: background 0.15s;"
+              class="wa-btn">
+              <i class="ri-whatsapp-line"></i> Escríbeme por WhatsApp
+            </a>
+            <a
+              href={`mailto:${EMAIL}`}
+              style="display: inline-flex; align-items: center; gap: 0.5rem; background: transparent; color: #6B6A65; font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.85rem 1.5rem; border: 1px solid #2A2A28; text-decoration: none; transition: border-color 0.15s, color 0.15s;"
+              class="email-btn">
+              <i class="ri-mail-line"></i> o por email
+            </a>
+          </div>
+          <p
+            style="font-family: var(--font-mono); font-size: 0.68rem; color: #3A3A38; letter-spacing: 0.06em;">
+            ◆ Si no encuentro el problema, el diagnóstico no se cobra.
+          </p>
+        </div>
+
+        <!-- Stats lado derecho -->
+        <div
+          style="display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: #2A2A28;">
+          {
+            [
+              { val: "< 2h", label: "Tiempo de resolución promedio" },
+              { val: "$0", label: "Cobro si no encuentro solución" },
+              { val: "7+", label: "Años resolviendo este tipo de problemas" },
+              { val: "50+", label: "Sitios recuperados y migrados" },
+            ].map((s) => (
+              <div style="background: #141414; padding: 2rem 1.5rem;">
+                <div style="font-family: var(--font-mono); font-size: 2.2rem; font-weight: 600; color: #FF4444; line-height: 1; margin-bottom: 0.5rem;">
+                  {s.val}
+                </div>
+                <div style="font-family: var(--font-mono); font-size: 0.68rem; color: #6B6A65; line-height: 1.5;">
+                  {s.label}
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- ── TICKER ────────────────────────────────────────────── -->
+    <div
+      style="overflow: hidden; background: #FF4444; padding: 0.7rem 0; border-bottom: 1px solid var(--border);">
+      <div
+        id="soporte-ticker"
+        style="display: flex; width: max-content; align-items: center;">
+        {
+          [...ticker, ...ticker].map((t) => (
+            <div style="display: flex; align-items: center; gap: 0; flex-shrink: 0;">
+              <span style="font-family: var(--font-mono); font-size: 0.68rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.92); padding: 0 1.75rem;">
+                {t}
+              </span>
+              <span style="color: rgba(255,255,255,0.3); font-size: 0.8rem;">
+                ·
+              </span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- ── SERVICIOS ─────────────────────────────────────────── -->
+    <section style="border-bottom: 1px solid var(--border);">
+      <div style="max-width: var(--max-w); margin: 0 auto;">
+        <div
+          style="display: grid; grid-template-columns: 1fr 2fr; border-bottom: 1px solid var(--border);"
+          class="section-header-grid">
+          <div
+            style="padding: 2.5rem 1.5rem; border-right: 1px solid var(--border);">
+            <div class="label-tag" style="margin-bottom: 0.75rem;">
+              Qué resuelvo
+            </div>
+            <div
+              style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--ink-faint);">
+              [01]
+            </div>
+          </div>
+          <div
+            style="padding: 2.5rem 2rem; display: flex; align-items: flex-end;">
+            <h2
+              style="font-size: clamp(1.4rem, 2.5vw, 2rem); font-weight: 500; color: var(--ink); max-width: 28ch;">
+              Problemas que soluciono sin importar la plataforma ni la hora
+            </h2>
+          </div>
+        </div>
+
+        {
+          services.map((s, i) => (
+            <a
+              href={`${WA_BASE}?text=Hola+David,+tengo+el+problema:+${s.waText}`}
+              target="_blank"
+              rel="noopener"
+              style={`
+            display: grid;
+            grid-template-columns: 60px 1fr auto;
+            align-items: center;
+            gap: 0;
+            border-bottom: 1px solid var(--border);
+            text-decoration: none;
+            color: inherit;
+            transition: background 0.15s ease;
+            border-left: 3px solid transparent;
+          `}
+              class="service-row">
+              <div style="padding: 1.75rem 0 1.75rem 1.5rem; font-family: var(--font-mono); font-size: 0.65rem; color: var(--ink-faint);">
+                [{s.num}]
+              </div>
+              <div style="padding: 1.75rem 2rem;">
+                <div style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 500; color: var(--ink); margin-bottom: 0.3rem;">
+                  {s.name}
+                </div>
+                <div style="font-size: 0.82rem; color: var(--ink-muted);">
+                  {s.desc}
+                </div>
+              </div>
+              <div style="padding: 1.75rem 1.5rem; text-align: right;">
+                <div style="font-family: var(--font-mono); font-size: 1rem; font-weight: 600; color: #CC2222; margin-bottom: 0.2rem;">
+                  {s.price}
+                </div>
+                <div style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--ink-faint);">
+                  resolución {s.time}
+                </div>
+              </div>
+            </a>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- ── PROCESO ───────────────────────────────────────────── -->
+    <section
+      style="border-bottom: 1px solid var(--border); background: var(--bg-surface);">
+      <div style="max-width: var(--max-w); margin: 0 auto;">
+        <div
+          style="display: grid; grid-template-columns: 1fr 2fr; border-bottom: 1px solid var(--border);"
+          class="section-header-grid">
+          <div
+            style="padding: 2.5rem 1.5rem; border-right: 1px solid var(--border);">
+            <div class="label-tag" style="margin-bottom: 0.75rem;">
+              Cómo funciona
+            </div>
+            <div
+              style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--ink-faint);">
+              [02]
+            </div>
+          </div>
+          <div
+            style="padding: 2.5rem 2rem; display: flex; align-items: flex-end;">
+            <h2
+              style="font-size: clamp(1.4rem, 2.5vw, 2rem); font-weight: 500; color: var(--ink);">
+              3 pasos. Sin vueltas.
+            </h2>
+          </div>
+        </div>
+
+        <div
+          style="display: grid; grid-template-columns: repeat(3, 1fr); "
+          class="steps-grid">
+          {
+            [
+              {
+                num: "01",
+                icon: "ri-chat-1-line",
+                title: "Me escribes ahora",
+                body: "Por WhatsApp o email. Cuéntame qué pasó y desde cuándo. Sin formularios ni tickets.",
+              },
+              {
+                num: "02",
+                icon: "ri-search-eye-line",
+                title: "Diagnóstico en 30 min",
+                body: "Identifico el problema exacto, te explico qué pasó y cuánto cuesta resolverlo. Sin sorpresas.",
+              },
+              {
+                num: "03",
+                icon: "ri-checkbox-circle-line",
+                title: "Tu web vuelve a vivir",
+                body: "Resuelvo el problema y te entrego un informe: qué pasó, cómo lo arreglé y cómo evitarlo.",
+              },
+            ].map((step, i) => (
+              <div
+                style={`padding: 2.5rem 1.5rem; ${i < 2 ? "border-right: 1px solid var(--border);" : ""} position: relative; overflow: hidden;`}>
+                <div style="font-family: var(--font-mono); font-size: 5rem; font-weight: 600; color: var(--border); line-height: 1; position: absolute; top: 0.5rem; right: 1rem; user-select: none;">
+                  {step.num}
+                </div>
+                <i
+                  class={`${step.icon}`}
+                  style="font-size: 1.4rem; color: #CC2222; display: block; margin-bottom: 1rem; position: relative; z-index: 1;"
+                />
+                <h3 style="font-family: var(--font-mono); font-size: 0.9rem; font-weight: 500; color: var(--ink); margin-bottom: 0.6rem; position: relative; z-index: 1;">
+                  {step.title}
+                </h3>
+                <p style="font-size: 0.85rem; color: var(--ink-muted); line-height: 1.7; position: relative; z-index: 1;">
+                  {step.body}
+                </p>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- ── TESTIMONIAL ───────────────────────────────────────── -->
+    <section style="border-bottom: 1px solid var(--border);">
+      <div
+        style="max-width: var(--max-w); margin: 0 auto; padding: 3.5rem 1.5rem;">
+        <div
+          style="border-left: 3px solid #CC2222; padding: 2rem 2.5rem; background: var(--bg-surface);">
+          <div
+            style="font-family: var(--font-mono); font-size: 3rem; color: var(--border); line-height: 1; margin-bottom: 1rem; user-select: none;">
+            "
+          </div>
+          <p
+            style="font-size: clamp(1rem, 2vw, 1.2rem); font-weight: 300; line-height: 1.75; color: var(--ink); font-style: italic; margin-bottom: 1.5rem; max-width: 64ch;">
+            Quiero agradecer enormemente los servicios de David Urdaneta, gran
+            profesional que me ayudó de manera rápida y eficaz a reestablecer y
+            migrar mi sitio Web. Buena disposición y rapidez independiente de la
+            distancia. Recomendable y confiable.
+          </p>
+          <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <div
+              style="width: 32px; height: 32px; background: var(--ink); display: flex; align-items: center; justify-content: center;">
+              <span
+                style="font-family: var(--font-mono); font-size: 0.58rem; font-weight: 600; color: var(--accent);"
+                >ML</span
+              >
+            </div>
+            <div>
+              <div
+                style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 500; color: var(--ink);">
+                Marcelo López
+              </div>
+              <div
+                style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--ink-faint);">
+                Grupo AWA — Santiago, Chile
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── PRECIOS ───────────────────────────────────────────── -->
+    <section style="border-bottom: 1px solid var(--border);">
+      <div style="max-width: var(--max-w); margin: 0 auto;">
+        <div
+          style="display: grid; grid-template-columns: 1fr 2fr; border-bottom: 1px solid var(--border);"
+          class="section-header-grid">
+          <div
+            style="padding: 2.5rem 1.5rem; border-right: 1px solid var(--border);">
+            <div class="label-tag" style="margin-bottom: 0.75rem;">
+              Tarifas claras
+            </div>
+            <div
+              style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--ink-faint);">
+              [03]
+            </div>
+          </div>
+          <div
+            style="padding: 2.5rem 2rem; display: flex; align-items: flex-end;">
+            <h2
+              style="font-size: clamp(1.4rem, 2.5vw, 2rem); font-weight: 500; color: var(--ink);">
+              Precio fijo por tipo de problema. Sin sorpresas al final.
+            </h2>
+          </div>
+        </div>
+
+        <div
+          style="display: grid; grid-template-columns: repeat(3, 1fr);"
+          class="plans-grid">
+          {
+            plans.map((p, i) => (
+              <div
+                style={`
+              padding: 2rem 1.5rem;
+              display: flex;
+              flex-direction: column;
+              ${i < 2 ? "border-right: 1px solid var(--border);" : ""}
+              ${p.featured ? "background: var(--bg-surface); border-top: 3px solid #CC2222;" : ""}
+            `}>
+                <div style="font-family: var(--font-mono); font-size: 0.65rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #CC2222; margin-bottom: 0.75rem;">
+                  {p.tag}
+                </div>
+                <div style="font-family: var(--font-mono); font-size: 1rem; font-weight: 500; color: var(--ink); margin-bottom: 0.5rem;">
+                  {p.name}
+                </div>
+                <div style="font-family: var(--font-mono); font-size: 2.2rem; font-weight: 600; color: #CC2222; line-height: 1; margin-bottom: 0.25rem;">
+                  {p.price}{" "}
+                  <span style="font-size: 0.85rem; font-weight: 400; color: var(--ink-faint);">
+                    USD
+                  </span>
+                </div>
+                <p style="font-size: 0.8rem; color: var(--ink-muted); font-family: var(--font-mono); margin-bottom: 1.5rem; line-height: 1.6;">
+                  {p.desc}
+                </p>
+                <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 2rem; flex: 1;">
+                  {p.features.map((f) => (
+                    <li style="display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.82rem; color: var(--ink-muted); line-height: 1.5;">
+                      <span style="color: #CC2222; flex-shrink: 0; margin-top: 0.1rem;">
+                        ◆
+                      </span>{" "}
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+                <a
+                  href={`${WA_BASE}?text=${p.waText}`}
+                  target="_blank"
+                  rel="noopener"
+                  style={`
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 0.85rem 1rem;
+                font-family: var(--font-mono);
+                font-size: 0.72rem;
+                font-weight: 600;
+                letter-spacing: 0.06em;
+                text-transform: uppercase;
+                text-decoration: none;
+                transition: all 0.15s;
+                ${
+                  p.featured
+                    ? "background: #CC2222; color: #fff; border: 1.5px solid #CC2222;"
+                    : "background: transparent; color: var(--ink); border: 1.5px solid var(--border);"
+                }
+              `}
+                  class="plan-cta">
+                  Empezar ahora <span>→</span>
+                </a>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- ── FAQ ───────────────────────────────────────────────── -->
+    <section
+      style="border-bottom: 1px solid var(--border); background: var(--bg-surface);">
+      <div style="max-width: var(--max-w); margin: 0 auto;">
+        <div
+          style="display: grid; grid-template-columns: 1fr 2fr; border-bottom: 1px solid var(--border);"
+          class="section-header-grid">
+          <div
+            style="padding: 2.5rem 1.5rem; border-right: 1px solid var(--border);">
+            <div class="label-tag" style="margin-bottom: 0.75rem;">FAQ</div>
+            <div
+              style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--ink-faint);">
+              [04]
+            </div>
+          </div>
+          <div
+            style="padding: 2.5rem 2rem; display: flex; align-items: flex-end;">
+            <h2
+              style="font-size: clamp(1.4rem, 2.5vw, 2rem); font-weight: 500; color: var(--ink);">
+              Lo que me preguntan antes de contratar
+            </h2>
+          </div>
+        </div>
+
+        <div id="faq-list">
+          {
+            faqs.map((f, i) => (
+              <div
+                class="faq-item"
+                style={`border-bottom: 1px solid var(--border);`}>
+                <button
+                  class="faq-btn"
+                  style="width: 100%; background: none; border: none; text-align: left; padding: 1.5rem 1.5rem; font-family: var(--font-mono); font-size: 0.88rem; font-weight: 500; color: var(--ink); cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem; transition: color 0.15s;">
+                  {f.q}
+                  <span
+                    class="faq-icon"
+                    style="color: var(--ink-faint); font-size: 1.1rem; flex-shrink: 0; transition: transform 0.25s;">
+                    +
+                  </span>
+                </button>
+                <div
+                  class="faq-answer"
+                  style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease; font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink-muted); line-height: 1.75; padding: 0 1.5rem;">
+                  {f.a}
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CTA FINAL ─────────────────────────────────────────── -->
+    <section
+      style="background: var(--bg-dark); border-bottom: 1px solid var(--border);">
+      <div
+        style="max-width: var(--max-w); margin: 0 auto; padding: 5rem 1.5rem; text-align: center;">
+        <div
+          class="label-tag"
+          style="color: #3A3A38; margin-bottom: 1.25rem; display: block;">
+          ¿Tu sitio está caído ahora?
+        </div>
+        <h2
+          style="font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 500; color: #F5F4F0; line-height: 1.0; letter-spacing: -0.03em; margin-bottom: 1.25rem;">
+          Tu web caída<br />es dinero perdido.<br /><span
+            style="color: #FF4444;">Escríbeme ahora.</span
+          >
+        </h2>
+        <p style="font-size: 0.9rem; color: #6B6A65; margin-bottom: 2.5rem;">
+          Atiendo Chile, España y Portugal. Respondo en menos de 2 horas.
+        </p>
+        <a
+          href={`${WA_BASE}?text=Hola+David,+necesito+soporte+urgente+para+mi+web`}
+          target="_blank"
+          rel="noopener"
+          style="display: inline-flex; align-items: center; gap: 0.6rem; background: #FF4444; color: #fff; font-family: var(--font-mono); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 1rem 2rem; text-decoration: none; transition: background 0.15s;"
+          class="wa-btn-final">
+          <i class="ri-whatsapp-line" style="font-size: 1.1rem;"></i> WhatsApp — Contacto
+          Directo
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<script>
+  import { gsap } from "gsap";
+
+  // Ticker
+  document.addEventListener("DOMContentLoaded", () => {
+    const track = document.getElementById("soporte-ticker") as HTMLElement;
+    if (track) {
+      const totalW = track.scrollWidth / 2;
+      gsap.to(track, { x: -totalW, duration: 18, ease: "none", repeat: -1 });
+    }
+  });
+
+  // FAQ accordion
+  document.getElementById("faq-list")?.addEventListener("click", (e) => {
+    const btn = (e.target as HTMLElement).closest(".faq-btn");
+    if (!btn) return;
+    const item = btn.closest(".faq-item") as HTMLElement;
+    const answer = item.querySelector(".faq-answer") as HTMLElement;
+    const icon = item.querySelector(".faq-icon") as HTMLElement;
+    const isOpen = item.classList.contains("open");
+
+    document.querySelectorAll(".faq-item").forEach((el) => {
+      el.classList.remove("open");
+      (el.querySelector(".faq-answer") as HTMLElement).style.maxHeight = "0";
+      (el.querySelector(".faq-answer") as HTMLElement).style.paddingBottom =
+        "0";
+      (el.querySelector(".faq-icon") as HTMLElement).style.transform =
+        "rotate(0deg)";
+    });
+
+    if (!isOpen) {
+      item.classList.add("open");
+      answer.style.maxHeight = "300px";
+      answer.style.paddingBottom = "1.5rem";
+      icon.style.transform = "rotate(45deg)";
+    }
+  });
+</script>
+
+<style>
+  .pulse-red {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #ff4444;
+    animation: blink-red 1.4s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+  @keyframes blink-red {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.2;
+    }
+  }
+
+  .service-row:hover {
+    background: var(--bg-surface);
+    border-left-color: #cc2222 !important;
+  }
+  .plan-cta:hover {
+    border-color: #cc2222 !important;
+    color: #cc2222 !important;
+    background: transparent !important;
+  }
+  .wa-btn:hover {
+    background: #b52424 !important;
+  }
+  .wa-btn-final:hover {
+    background: #b52424 !important;
+  }
+  .email-btn:hover {
+    border-color: var(--ink) !important;
+    color: var(--ink) !important;
+  }
+
+  @media (max-width: 768px) {
+    .soporte-hero-grid {
+      grid-template-columns: 1fr !important;
+    }
+    .section-header-grid {
+      grid-template-columns: 1fr !important;
+    }
+    .section-header-grid > div:first-child {
+      border-right: none !important;
+      border-bottom: 1px solid var(--border);
+    }
+    .steps-grid {
+      grid-template-columns: 1fr !important;
+    }
+    .steps-grid > div {
+      border-right: none !important;
+      border-bottom: 1px solid var(--border);
+    }
+    .plans-grid {
+      grid-template-columns: 1fr !important;
+    }
+    .plans-grid > div {
+      border-right: none !important;
+      border-bottom: 1px solid var(--border);
+    }
+  }
+</style>

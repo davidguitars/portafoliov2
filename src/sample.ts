@@ -2,7 +2,7 @@ const author = {
     name:     `[David Urdaneta]`,
     nickname: `[David Urdaneta]`,
     email:    `mailto:contacto@davidurdaneta.com`,
-    linkedin: `https://www.linkedin.com/in/david-urdaneta-75bb8b1a1/`,
+    linkedin: `https://www.linkedin.com/in/david-urdaneta-pirela`,
     github:   `https://github.com/davidguitars`,
 
 }
