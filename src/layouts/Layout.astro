@@ -80,6 +80,53 @@ const ogImageUrl = image ? new URL(image, siteUrl).href : new URL(ogImg.src, sit
     <slot />
     {showWhatsApp && <WhatsAppButton />}
 
+    <!-- Reveal 3D al hacer scroll -->
+    <script>
+      import { gsap } from "gsap";
+      import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      const reduceMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+
+      if (!reduceMotion) {
+        const reveal = () => {
+          gsap.utils.toArray("[data-reveal]").forEach((el: HTMLElement) => {
+            const delay = parseFloat(el.dataset.revealDelay || "0");
+            gsap.from(el, {
+              y: 64,
+              opacity: 0,
+              rotateX: 8,
+              transformPerspective: 900,
+              duration: 0.9,
+              ease: "power3.out",
+              delay,
+              scrollTrigger: { trigger: el, start: "top 86%", once: true },
+            });
+          });
+
+          gsap.utils.toArray("[data-reveal-group]").forEach((g: HTMLElement) => {
+            const children = g.querySelectorAll("[data-reveal-child]");
+            gsap.from(children, {
+              y: 70,
+              opacity: 0,
+              rotateX: 8,
+              transformPerspective: 900,
+              duration: 0.9,
+              ease: "power3.out",
+              stagger: 0.12,
+              scrollTrigger: { trigger: g, start: "top 85%", once: true },
+            });
+          });
+        };
+
+        if (document.readyState !== "loading") reveal();
+        else document.addEventListener("DOMContentLoaded", reveal);
+      }
+    </script>
+
     <!-- UTM tracking → mensajes de WhatsApp -->
     <script is:inline>
       (function () {

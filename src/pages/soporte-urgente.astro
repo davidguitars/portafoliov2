@@ -322,7 +322,8 @@ const ticker = [
             transition: background 0.15s ease;
             border-left: 3px solid transparent;
           `}
-              class="service-row">
+              class="service-row"
+              data-reveal>
               <div style="padding: 1.75rem 0 1.75rem 1.5rem; font-family: var(--font-mono); font-size: 0.65rem; color: var(--ink-faint);">
                 [{s.num}]
               </div>
@@ -376,7 +377,8 @@ const ticker = [
 
         <div
           style="display: grid; grid-template-columns: repeat(3, 1fr); "
-          class="steps-grid">
+          class="steps-grid"
+          data-reveal-group>
           {
             [
               {
@@ -399,7 +401,8 @@ const ticker = [
               },
             ].map((step, i) => (
               <div
-                style={`padding: 2.5rem 1.5rem; ${i < 2 ? "border-right: 1px solid var(--border);" : ""} position: relative; overflow: hidden;`}>
+                style={`padding: 2.5rem 1.5rem; ${i < 2 ? "border-right: 1px solid var(--border);" : ""} position: relative; overflow: hidden;`}
+                data-reveal-child>
                 <div style="font-family: var(--font-mono); font-size: 5rem; font-weight: 600; color: var(--border); line-height: 1; position: absolute; top: 0.5rem; right: 1rem; user-select: none;">
                   {step.num}
                 </div>
@@ -425,7 +428,8 @@ const ticker = [
       <div
         style="max-width: var(--max-w); margin: 0 auto; padding: 3.5rem 1.5rem;">
         <div
-          style="border-left: 3px solid #CC2222; padding: 2rem 2.5rem; background: var(--bg-surface);">
+          style="border-left: 3px solid #CC2222; padding: 2rem 2.5rem; background: var(--bg-surface);"
+          data-reveal>
           <div
             style="font-family: var(--font-mono); font-size: 3rem; color: var(--border); line-height: 1; margin-bottom: 1rem; user-select: none;">
             "
@@ -487,7 +491,8 @@ const ticker = [
 
         <div
           style="display: grid; grid-template-columns: repeat(3, 1fr);"
-          class="plans-grid">
+          class="plans-grid"
+          data-reveal-group>
           {
             plans.map((p, i) => (
               <div
@@ -497,7 +502,8 @@ const ticker = [
               flex-direction: column;
               ${i < 2 ? "border-right: 1px solid var(--border);" : ""}
               ${p.featured ? "background: var(--bg-surface); border-top: 3px solid #CC2222;" : ""}
-            `}>
+            `}
+                data-reveal-child>
                 <div style="font-family: var(--font-mono); font-size: 0.65rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #CC2222; margin-bottom: 0.75rem;">
                   {p.tag}
                 </div>

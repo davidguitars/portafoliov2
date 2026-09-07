@@ -74,7 +74,8 @@ const services = [
     <!-- Grid de servicios -->
     <div
       style="display: grid; grid-template-columns: 1fr 1fr;"
-      class="services-grid">
+      class="services-grid"
+      data-reveal-group>
       {
         services.map((s, i) => (
           <div
@@ -85,7 +86,8 @@ const services = [
           transition: background 0.15s ease;
           cursor: default;
         `}
-            class="service-item">
+            class="service-item"
+            data-reveal-child>
             <div style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--ink-faint); margin-bottom: 1rem;">
               [{s.num}]
             </div>

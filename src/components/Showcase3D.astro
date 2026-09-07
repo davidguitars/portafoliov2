@@ -1,0 +1,167 @@
+---
+const dims = [
+  {
+    num: "01",
+    name: "Diseño UX/UI",
+    desc: "Investigación, wireframes y sistemas de diseño que eliminan fricción y convierten.",
+    icon: "ri-pen-nib-line",
+  },
+  {
+    num: "02",
+    name: "Desarrollo Frontend",
+    desc: "Astro, React y Webflow. Código limpio, rendimiento real y animaciones que enamoran.",
+    icon: "ri-code-s-slash-line",
+  },
+  {
+    num: "03",
+    name: "Automatización con IA",
+    desc: "Flujos con N8N e IA que reducen trabajo manual y escalan tu operación.",
+    icon: "ri-robot-2-line",
+  },
+];
+---
+
+<section
+  id="experiencia"
+  style="border-bottom: 1px solid var(--border); padding: 4.5rem 1.5rem; background: var(--bg-dark);"
+  class="showcase3d">
+  <div style="max-width: var(--max-w); margin: 0 auto;">
+    <div
+      class="label-tag"
+      style="color: #6B6A65; margin-bottom: 1rem; display: block;">
+      [06] · 3 dimensiones de trabajo
+    </div>
+    <h2
+      style="font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 500; color: #F5F4F0; line-height: 1.1; letter-spacing: -0.03em; margin-bottom: 3rem;">
+      Todo en un mismo<br />
+      <span style="color: var(--accent);">plano de profundidad.</span>
+    </h2>
+
+    <!-- Escenario 3D -->
+    <div class="stage3d" data-tilt-stage>
+      <div class="stack3d">
+        {
+          dims.map((d, i) => (
+            <article
+              class="panel3d"
+              style="background: ${i === 0 ? "var(--accent)" : i === 1 ? "#F5F4F0" : "#141414"};">
+              <div
+                style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem; position: relative; z-index: 1;">
+                <span
+                  style="font-family: var(--font-mono); font-size: 0.65rem; font-weight: 500; color: ${i === 2 ? "#6B6A65" : "var(--ink)"};">
+                  [{d.num}]
+                </span>
+                <i
+                  class={d.icon}
+                  style="font-size: 1.15rem; color: ${i === 2 ? "var(--accent)" : "var(--ink)"};"
+                ></i>
+              </div>
+              <h3
+                style="font-family: var(--font-mono); font-size: 1.25rem; font-weight: 500; color: ${i === 2 ? "#F5F4F0" : "var(--ink)"}; margin-bottom: 0.6rem; position: relative; z-index: 1;">
+                {d.name}
+              </h3>
+              <p
+                style="font-size: 0.88rem; line-height: 1.7; color: ${i === 2 ? "#6B6A65" : "var(--ink-muted)"}; max-width: 44ch; position: relative; z-index: 1;">
+                {d.desc}
+              </p>
+              <div
+                style="font-family: var(--font-mono); font-size: 5rem; font-weight: 600; color: transparent; position: absolute; bottom: -0.4rem; right: 1rem; line-height: 1; -webkit-text-stroke: 1px ${i === 2 ? "#2A2A28" : "rgba(15,15,14,0.15)"}; user-select: none; pointer-events: none;">
+                {d.num}
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  gsap.registerPlugin(ScrollTrigger);
+
+  const reduceMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
+
+  if (!reduceMotion) {
+    const run = () => {
+      const panels = gsap.utils.toArray(".panel3d");
+      if (!panels.length) return;
+
+      // Despliegue 3D al hacer scroll
+      gsap.fromTo(
+        panels,
+        { y: 110, opacity: 0.85, rotateX: 16, transformPerspective: 900 },
+        {
+          y: (i) => -i * 26,
+          opacity: 1,
+          rotateX: 0,
+          ease: "none",
+          stagger: 0.16,
+          scrollTrigger: {
+            trigger: ".stage3d",
+            start: "top 92%",
+            end: "+=420",
+            scrub: true,
+          },
+        },
+      );
+
+      // Tilt 3D con el mouse
+      const stage = document.querySelector(".stage3d") as HTMLElement;
+      if (stage) {
+        stage.addEventListener("pointermove", (e) => {
+          const r = stage.getBoundingClientRect();
+          const x = (e.clientX - r.left) / r.width - 0.5;
+          const y = (e.clientY - r.top) / r.height - 0.5;
+          gsap.to(stage, {
+            rotationY: x * 7,
+            rotationX: -y * 7,
+            transformPerspective: 1000,
+            duration: 0.4,
+            ease: "power2.out",
+          });
+        });
+        stage.addEventListener("pointerleave", () => {
+          gsap.to(stage, {
+            rotationY: 0,
+            rotationX: 0,
+            duration: 0.5,
+            ease: "power2.out",
+          });
+        });
+      }
+    };
+
+    if (document.readyState !== "loading") run();
+    else document.addEventListener("DOMContentLoaded", run);
+  }
+</script>
+
+<style>
+  .stage3d {
+    perspective: 1000px;
+    perspective-origin: 50% 0%;
+    padding: 2rem 0 4rem;
+    will-change: transform;
+  }
+  .stack3d {
+    position: relative;
+    max-width: 640px;
+  }
+  .panel3d {
+    position: relative;
+    border: 1px solid var(--border-dark);
+    padding: 2.25rem 2rem;
+    margin-bottom: 1rem;
+    overflow: hidden;
+    will-change: transform;
+  }
+  @media (max-width: 768px) {
+    .showcase3d {
+      padding: 3.5rem 1.25rem !important;
+    }
+  }
+</style>

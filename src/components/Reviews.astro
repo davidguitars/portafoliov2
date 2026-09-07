@@ -82,6 +82,7 @@ const clientLogos = [
     <!-- Testimonios — cada card es flex column para alinear autor al fondo -->
     <div
       class="testimonials-grid"
+      data-reveal-group
       style="display: grid; grid-template-columns: repeat(3, 1fr); border-bottom: 1px solid var(--border); align-items: stretch;">
       {
         testimonials.map((t, i) => (
@@ -91,7 +92,8 @@ const clientLogos = [
           display: flex;
           flex-direction: column;
           ${i < testimonials.length - 1 ? "border-right: 1px solid var(--border);" : ""}
-        `}>
+        `}
+            data-reveal-child>
             {/* Comilla */}
             <div style="font-family: var(--font-mono); font-size: 2rem; color: var(--border); line-height: 1; margin-bottom: 1rem; user-select: none;">
               "

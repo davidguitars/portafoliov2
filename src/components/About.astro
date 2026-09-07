@@ -69,9 +69,10 @@ const stats = [
     <!-- Cuerpo: bio + credenciales -->
     <div
       style="display: grid; grid-template-columns: 1fr 1fr;"
-      class="about-grid">
+      class="about-grid"
+      data-reveal-group>
       <!-- Bio -->
-      <div style="padding: 2.5rem 2rem 2.5rem 1.5rem; border-right: 1px solid var(--border);">
+      <div style="padding: 2.5rem 2rem 2.5rem 1.5rem; border-right: 1px solid var(--border);" data-reveal-child>
         {
           bio.map((p) => (
             <p
@@ -98,7 +99,7 @@ const stats = [
       </div>
 
       <!-- Credenciales -->
-      <div style="padding: 2.5rem 1.5rem;">
+      <div style="padding: 2.5rem 1.5rem;" data-reveal-child>
         <div style="display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 2rem;">
           {
             credentials.map((c) => (
