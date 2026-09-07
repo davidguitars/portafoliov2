@@ -1,5 +1,15 @@
 ---
-const { title = "David Urdaneta Studio" } = Astro.props;
+const {
+  title = "David Urdaneta Studio",
+  description = "Diseñador UX/UI & Desarrollador Frontend especializado en crear experiencias digitales que convierten.",
+  image = "/images/david-profile.png",
+} = Astro.props;
+
+const canonical =
+  Astro.site && Astro.url.pathname !== "/"
+    ? new URL(Astro.url.pathname, Astro.site).href
+    : Astro.url.pathname;
+const siteUrl = Astro.site ? Astro.site.href : "https://davidurdaneta.com";
 ---
 
 <!doctype html>
@@ -10,10 +20,23 @@ const { title = "David Urdaneta Studio" } = Astro.props;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
-    <meta
-      name="description"
-      content="Diseñador UX/UI & Desarrollador Frontend especializado en crear experiencias digitales que convierten."
-    />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="David Urdaneta" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL(image, siteUrl).href} />
+    <meta property="og:locale" content="es_CL" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(image, siteUrl).href} />
 
     <!-- Google Tag Manager -->
     <script is:inline>

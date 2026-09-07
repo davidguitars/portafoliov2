@@ -7,6 +7,14 @@ import Footer from "../components/Footer.astro";
 const WA_NUMBER = "56958679252";
 const WA_BASE = `https://wa.me/${WA_NUMBER}`;
 const EMAIL = "contacto@davidurdaneta.com";
+const LANDING_URL = "https://davidurdaneta.com/soporte-urgente";
+const LANDING_IMAGE = "/images/david-profile.png";
+
+const seo = {
+  title: "Soporte Web Urgente — Web caída o WordPress roto | David Urdaneta",
+  description:
+    "¿Tu web está caída? Diagnóstico en 30 minutos y solución en menos de 2 horas. Sitio hackeado, WordPress roto, SSL o migración urgente. Sin cobro si no encuentro el problema. Escríbeme por WhatsApp.",
+};
 
 const services = [
   {
@@ -133,7 +141,52 @@ const ticker = [
 ];
 ---
 
-<Layout title="Soporte Web Urgente — David Urdaneta">
+<Layout
+  title={seo.title}
+  description={seo.description}
+  image={LANDING_IMAGE}>
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Service",
+      name: "Soporte Web Urgente",
+      description: seo.description,
+      provider: {
+        "@type": "Person",
+        name: "David Urdaneta",
+        email: EMAIL,
+        url: "https://davidurdaneta.com",
+      },
+      areaServed: ["CL", "ES", "PT", "PE", "MX", "CO", "AR"],
+      serviceType: [
+        "Recuperación de sitios web caídos",
+        "Limpieza de malware",
+        "Reparación de WordPress",
+        "Migración de hosting",
+        "Soporte SSL",
+      ],
+      offers: [
+        {
+          "@type": "Offer",
+          price: "99990",
+          priceCurrency: "CLP",
+          description: "Emergencia básica — Web caída / SSL",
+        },
+        {
+          "@type": "Offer",
+          price: "149990",
+          priceCurrency: "CLP",
+          description: "WordPress / CMS roto",
+        },
+        {
+          "@type": "Offer",
+          price: "199990",
+          priceCurrency: "CLP",
+          description: "Sitio hackeado",
+        },
+      ],
+    })} />
   <Header />
 
   <main>
@@ -602,6 +655,36 @@ const ticker = [
     if (track) {
       const totalW = track.scrollWidth / 2;
       gsap.to(track, { x: -totalW, duration: 18, ease: "none", repeat: -1 });
+    }
+  });
+
+  // ── Tracking de conversión (Google Ads / GTM) ──────────────
+  // Emite un evento al dataLayer de GTM cuando se hace clic en
+  // cualquier CTA de WhatsApp de la landing.
+  const pushWA = (section: string) => {
+    if (typeof window !== "undefined" && window.dataLayer) {
+      window.dataLayer.push({
+        event: "wa_click",
+        wa_section: section,
+        wa_number: "56958679252",
+      });
+    }
+  };
+
+  document.addEventListener("click", (e) => {
+    const el = (e.target as HTMLElement).closest(
+      'a[href^="https://wa.me/"]',
+    ) as HTMLElement;
+    if (!el) return;
+    if (
+      el.classList.contains("wa-btn") ||
+      el.classList.contains("wa-btn-final")
+    ) {
+      pushWA("hero");
+    } else if (el.classList.contains("service-row")) {
+      pushWA("service");
+    } else if (el.classList.contains("plan-cta")) {
+      pushWA("plan");
     }
   });
 

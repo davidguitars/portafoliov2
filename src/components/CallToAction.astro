@@ -1,5 +1,10 @@
 ---
 import { author } from "../sample";
+
+const WA_NUMBER = "56958679252";
+const WA_HREF = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(
+  "Hola David, vi tu portafolio y me gustaría agendar una llamada.",
+)}`;
 ---
 
 <section
@@ -49,7 +54,9 @@ import { author } from "../sample";
 
         <!-- WhatsApp / Contacto directo -->
         <a
-          href="#"
+          href={WA_HREF}
+          target="_blank"
+          rel="noopener"
           style="
           display: flex;
           align-items: center;
