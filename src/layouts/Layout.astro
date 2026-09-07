@@ -53,16 +53,30 @@ const ogImageUrl = image ? new URL(image, siteUrl).href : new URL(ogImg.src, sit
 
     <!-- Google Tag Manager -->
     <script is:inline>
-      (function (w, d, s, l, i) {
-        w[l] = w[l] || [];
-        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
-        var f = d.getElementsByTagName(s)[0],
-          j = d.createElement(s),
-          dl = l != "dataLayer" ? "&l=" + l : "";
-        j.async = true;
-        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-        f.parentNode.insertBefore(j, f);
-      })(window, document, "script", "dataLayer", "GTM-TM5FNKQ3");
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+      (function () {
+        var load = function () {
+          if (window.__gtmLoaded) return;
+          window.__gtmLoaded = true;
+          var j = document.createElement("script");
+          j.async = true;
+          j.src = "https://www.googletagmanager.com/gtm.js?id=GTM-TM5FNKQ3";
+          document.head.appendChild(j);
+        };
+        if (
+          "requestIdleCallback" in window &&
+          document.readyState !== "complete"
+        ) {
+          window.addEventListener("load", function () {
+            window.requestIdleCallback(load, { timeout: 1500 });
+          });
+        } else if (document.readyState === "complete") {
+          load();
+        } else {
+          window.addEventListener("load", load);
+        }
+      })();
     </script>
     <!-- End Google Tag Manager -->
   </head>
@@ -82,17 +96,22 @@ const ogImageUrl = image ? new URL(image, siteUrl).href : new URL(ogImg.src, sit
 
     <!-- Reveal 3D al hacer scroll -->
     <script>
-      import { gsap } from "gsap";
-      import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-      gsap.registerPlugin(ScrollTrigger);
-
       const reduceMotion = window.matchMedia(
         "(prefers-reduced-motion: reduce)",
       ).matches;
 
-      if (!reduceMotion) {
-        const reveal = () => {
+      const hasReveal =
+        typeof document !== "undefined" &&
+        !!document.querySelector("[data-reveal], [data-reveal-group]");
+
+      if (!reduceMotion && hasReveal) {
+        const reveal = async () => {
+          const [{ default: gsap }, { ScrollTrigger }] = await Promise.all([
+            import("gsap"),
+            import("gsap/ScrollTrigger"),
+          ]);
+          gsap.registerPlugin(ScrollTrigger);
+
           gsap.utils.toArray("[data-reveal]").forEach((el: HTMLElement) => {
             const delay = parseFloat(el.dataset.revealDelay || "0");
             gsap.from(el, {
@@ -122,8 +141,13 @@ const ogImageUrl = image ? new URL(image, siteUrl).href : new URL(ogImg.src, sit
           });
         };
 
-        if (document.readyState !== "loading") reveal();
-        else document.addEventListener("DOMContentLoaded", reveal);
+        const onReady = () => {
+          if (document.readyState === "complete") reveal();
+          else window.addEventListener("load", reveal);
+        };
+
+        if (document.readyState !== "loading") onReady();
+        else document.addEventListener("DOMContentLoaded", onReady);
       }
     </script>
 

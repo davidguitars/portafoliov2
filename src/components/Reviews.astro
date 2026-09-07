@@ -170,6 +170,7 @@ const clientLogos = [
                   class="logo-img"
                   loading="lazy"
                   decoding="async"
+                  referrerpolicy="no-referrer"
                   onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
                 />
                 <span style="display:none; font-family: var(--font-mono); font-size: 0.7rem; font-weight: 500; color: var(--ink-faint); letter-spacing: 0.05em;">
@@ -185,20 +186,28 @@ const clientLogos = [
 </section>
 
 <script>
-  import { gsap } from "gsap";
-
   document.addEventListener("DOMContentLoaded", () => {
     const track = document.getElementById("logos-track") as HTMLElement;
     if (!track) return;
 
     const original = Array.from(track.children);
     original.forEach((el) => track.appendChild(el.cloneNode(true)));
-    const totalW = track.scrollWidth / 2;
+    track.classList.add("mad-marquee");
 
-    gsap.to(track, { x: -totalW, duration: 22, ease: "none", repeat: -1 });
+    let paused = false;
+    const setPaused = (v: boolean) => {
+      paused = v;
+      track.classList.toggle("mad-paused", paused);
+    };
+    if (typeof IntersectionObserver !== "undefined") {
+      new IntersectionObserver(
+        (entries) => setPaused(!entries[0].isIntersecting),
+        { threshold: 0 },
+      ).observe(track);
+    }
 
-    track.addEventListener("mouseenter", () => gsap.globalTimeline.pause());
-    track.addEventListener("mouseleave", () => gsap.globalTimeline.resume());
+    track.addEventListener("mouseenter", () => setPaused(true));
+    track.addEventListener("mouseleave", () => setPaused(false));
 
     track.querySelectorAll(".logo-img").forEach((img) => {
       img.addEventListener(
@@ -214,6 +223,23 @@ const clientLogos = [
 </script>
 
 <style>
+  #logos-track {
+    will-change: transform;
+  }
+  .mad-marquee {
+    animation: mad-scroll 22s linear infinite;
+  }
+  .mad-marquee.mad-paused {
+    animation-play-state: paused;
+  }
+  @keyframes mad-scroll {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
   @media (max-width: 768px) {
     .reviews-header,
     .testimonials-grid {

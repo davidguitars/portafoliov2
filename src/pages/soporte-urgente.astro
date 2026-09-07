@@ -649,14 +649,18 @@ const ticker = [
 </Layout>
 
 <script>
-  import { gsap } from "gsap";
-
   // Ticker
   document.addEventListener("DOMContentLoaded", () => {
     const track = document.getElementById("soporte-ticker") as HTMLElement;
-    if (track) {
-      const totalW = track.scrollWidth / 2;
-      gsap.to(track, { x: -totalW, duration: 18, ease: "none", repeat: -1 });
+    if (!track) return;
+    Array.from(track.children).forEach((el) => track.appendChild(el.cloneNode(true)));
+    track.classList.add("mad-marquee-soporte");
+    if (typeof IntersectionObserver !== "undefined") {
+      new IntersectionObserver(
+        (entries) =>
+          track.classList.toggle("mad-paused", !entries[0].isIntersecting),
+        { threshold: 0 },
+      ).observe(track);
     }
   });
 
@@ -720,6 +724,23 @@ const ticker = [
 </script>
 
 <style>
+  #soporte-ticker {
+    will-change: transform;
+  }
+  .mad-marquee-soporte {
+    animation: mad-scroll-soporte 18s linear infinite;
+  }
+  .mad-marquee-soporte.mad-paused {
+    animation-play-state: paused;
+  }
+  @keyframes mad-scroll-soporte {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
   .pulse-red {
     display: inline-block;
     width: 7px;

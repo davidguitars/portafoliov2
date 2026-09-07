@@ -7,21 +7,42 @@ const mytools = [
 ---
 
 <script>
-  import { gsap } from "gsap";
   document.addEventListener("DOMContentLoaded", () => {
-    const track = document.querySelector("#ticker-track") as HTMLElement;
+    const track = document.getElementById("ticker-track") as HTMLElement;
     if (!track) return;
     Array.from(track.children).forEach((el) => {
       track.appendChild(el.cloneNode(true));
     });
-    gsap.to(track, {
-      x: -(track.scrollWidth / 2),
-      duration: 35,
-      ease: "none",
-      repeat: -1,
-    });
+    track.classList.add("mad-marquee");
+    if (typeof IntersectionObserver !== "undefined") {
+      new IntersectionObserver(
+        (entries) =>
+          track.classList.toggle("mad-paused", !entries[0].isIntersecting),
+        { threshold: 0 },
+      ).observe(track);
+    }
   });
 </script>
+
+<style>
+  #ticker-track {
+    will-change: transform;
+  }
+  .mad-marquee {
+    animation: mad-scroll 30s linear infinite;
+  }
+  .mad-marquee.mad-paused {
+    animation-play-state: paused;
+  }
+  @keyframes mad-scroll {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+</style>
 
 <div style="border-bottom: 1px solid var(--border); border-top: 1px solid var(--border); overflow: hidden; background: var(--bg-dark); padding: 0.9rem 0;">
   <div id="ticker-track" style="display: flex; align-items: center; gap: 0; width: max-content;">

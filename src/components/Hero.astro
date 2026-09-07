@@ -171,32 +171,44 @@ import profileImg from "../assets/david-profile.png";
   gsap.registerPlugin(ScrollTrigger);
 
   // ─── Efecto Apple: el hero "se agranda" y se hunde al scrollear ───
-  if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    const hero = document.querySelector(".hero-scrub") as HTMLElement | null;
-    if (hero) {
-      gsap
-        .timeline({
-          scrollTrigger: {
-            trigger: hero,
-            start: "top top",
-            end: "+=80%",
-            scrub: true,
-          },
-        })
-        .to(".hero-grid", { y: -80, opacity: 0.15, ease: "none" }, 0)
-        .to(".hero-photo", { scale: 1.18, y: 48, ease: "none" }, 0)
-        .to(".hero-visual", { y: -36, ease: "none" }, 0);
-    }
+  const reduceMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
+
+  if (!reduceMotion) {
+    const initApple = () => {
+      const hero = document.querySelector(".hero-scrub") as HTMLElement | null;
+      if (hero) {
+        gsap
+          .timeline({
+            scrollTrigger: {
+              trigger: hero,
+              start: "top top",
+              end: "+=80%",
+              scrub: true,
+            },
+          })
+          .to(".hero-grid", { y: -80, opacity: 0.15, ease: "none" }, 0)
+          .to(".hero-photo", { scale: 1.18, y: 48, ease: "none" }, 0)
+          .to(".hero-visual", { y: -36, ease: "none" }, 0);
+      }
+    };
+    if (document.readyState === "complete") initApple();
+    else window.addEventListener("load", initApple);
   }
 
   const canvas = document.getElementById("network-canvas") as HTMLCanvasElement;
-  if (!canvas) throw new Error();
+  const canvasVisible = () => canvas.offsetParent !== null;
+
+  if (canvas && !reduceMotion && canvasVisible()) {
   const ctx = canvas.getContext("2d")!;
 
+  const DPR = () => Math.min(window.devicePixelRatio || 1, 2);
+
   function resize() {
-    canvas.width = canvas.offsetWidth * window.devicePixelRatio;
-    canvas.height = canvas.offsetHeight * window.devicePixelRatio;
-    ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+    canvas.width = canvas.offsetWidth * DPR();
+    canvas.height = canvas.offsetHeight * DPR();
+    ctx.setTransform(DPR(), 0, 0, DPR(), 0, 0);
   }
   resize();
   window.addEventListener("resize", resize);
@@ -359,11 +371,31 @@ import profileImg from "../assets/david-profile.png";
       if (n.x < 0 || n.x > w) n.vx *= -1;
       if (n.y < 0 || n.y > h) n.vy *= -1;
     });
-
-    requestAnimationFrame(draw);
   }
 
-  draw();
+  // Bucle con pausa: se detiene cuando el canvas sale de pantalla
+  let running = false;
+  function kick() {
+    if (running) return;
+    running = true;
+    const step = () => {
+      draw();
+      if (running) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+  if (typeof IntersectionObserver !== "undefined") {
+    new IntersectionObserver(
+      (entries) => {
+        const on = entries[0].isIntersecting && canvasVisible();
+        if (on) kick();
+        else running = false;
+      },
+      { threshold: 0 },
+    ).observe(canvas);
+  }
+  kick();
+  }
 </script>
 
 <style>
