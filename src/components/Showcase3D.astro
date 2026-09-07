@@ -44,6 +44,7 @@ const dims = [
           dims.map((d, i) => (
             <article
               class="panel3d"
+              data-dz={i}
               style="background: ${i === 0 ? "var(--accent)" : i === 1 ? "#F5F4F0" : "#141414"};">
               <div
                 style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem; position: relative; z-index: 1;">
@@ -72,6 +73,19 @@ const dims = [
           ))
         }
       </div>
+      <!-- Barra de profundidad -->
+      <div
+        class="dp"
+        style="margin-top: 1.5rem; display: flex; align-items: center; gap: 1rem; font-family: var(--font-mono);">
+        <span class="label-tag" style="color: #6B6A65;">Scroll ↓</span>
+        <div
+          class="dp-track"
+          style="flex: 1; height: 1px; background: #2A2A28; position: relative;">
+          <div
+            class="dp-bar"
+            style="height: 2px; background: var(--accent); transform-origin: left; transform: scaleX(0); width: 100%;"></div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -90,26 +104,88 @@ const dims = [
       const panels = gsap.utils.toArray(".panel3d");
       if (!panels.length) return;
 
-      // Despliegue 3D al hacer scroll
-      gsap.fromTo(
-        panels,
-        { y: 110, opacity: 0.85, rotateX: 16, transformPerspective: 900 },
-        {
-          y: (i) => -i * 26,
-          opacity: 1,
-          rotateX: 0,
-          ease: "none",
-          stagger: 0.16,
+      // Sin flash: la pila nace profunda y oculta hasta que el scroll la trae
+      gsap.set(".panel3d", {
+        y: 260,
+        opacity: 0,
+        rotateX: 24,
+        z: -560,
+        transformPerspective: 1400,
+      });
+
+      const pinEnd = () => "+=" + Math.min(window.innerHeight * 1.6, 1200);
+
+      gsap
+        .timeline({
           scrollTrigger: {
             trigger: ".stage3d",
-            start: "top 65%",
-            end: () => "+=" + window.innerHeight * 1.15,
+            start: "top 60%",
+            end: pinEnd,
             scrub: true,
-            pin: true,
+            pin: ".stage3d",
             anticipatePin: 1,
           },
-        },
-      );
+        })
+        // Fase 1: deep-zoom — cada panel nace muy atrás y avanza al frente
+        .fromTo(
+          ".panel3d",
+          {
+            y: 260,
+            opacity: 0,
+            rotateX: 24,
+            z: -560,
+            transformPerspective: 1400,
+          },
+          {
+            y: (i) => -i * 42,
+            opacity: 1,
+            rotateX: 0,
+            z: 0,
+            zIndex: (_) => 9,
+            ease: "none",
+            stagger: 0.28,
+          },
+          0,
+        )
+        // Fase 2: cada panel rota en su propio eje (deep-dive al frente)
+        .fromTo(
+          ".panel3d",
+          { rotateY: 0 },
+          {
+            rotateY: (i) => (i % 2 === 0 ? 14 : -14),
+            duration: 1,
+            ease: "power2.inOut",
+          },
+          0.5,
+        )
+        .to(
+          ".panel3d",
+          {
+            rotateY: 0,
+            stagger: 0.15,
+            ease: "power2.inOut",
+          },
+          1.1,
+        );
+
+      // Contador de profundidad
+      const bar = document.querySelector(".dp-bar") as HTMLElement;
+      if (bar) {
+        gsap.fromTo(
+          bar,
+          { scaleX: 0 },
+          {
+            scaleX: 1,
+            ease: "none",
+            scrollTrigger: {
+              trigger: ".stage3d",
+              start: "top 60%",
+              end: pinEnd(),
+              scrub: true,
+            },
+          },
+        );
+      }
 
       // Tilt 3D con el mouse (sobre la pila, el stage queda anclado por GSAP)
       const stack = document.querySelector(".stack3d") as HTMLElement;
@@ -119,9 +195,9 @@ const dims = [
           const x = (e.clientX - r.left) / r.width - 0.5;
           const y = (e.clientY - r.top) / r.height - 0.5;
           gsap.to(stack, {
-            rotationY: x * 7,
-            rotationX: -y * 7,
-            transformPerspective: 1000,
+            rotationY: x * 9,
+            rotationX: -y * 9,
+            transformPerspective: 1400,
             duration: 0.4,
             ease: "power2.out",
           });
