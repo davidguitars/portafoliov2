@@ -7,6 +7,18 @@ const portfolio = [
     cover: `/images/estudioroca desktop.png`,
     link: "https://estudioroca.cl/",
     year: "2024",
+    problem:
+      "Web lenta y desactualizada que no reflejaba la identidad premium de la marca, con bajas tasas de conversión en el catálogo online.",
+    process: [
+      "Investigación UX: entrevistas a clientes y análisis de la competencia del rubro.",
+      "Sistema de diseño y UI alineado a la identidad editorial de la marca.",
+      "Desarrollo en Webflow con animaciones sutiles y SEO on-page.",
+    ],
+    result: [
+      { val: "+120%", label: "Pedidos online" },
+      { val: "< 2s", label: "Carga de páginas" },
+      { val: "1.0", label: "Cumple con la marca" },
+    ],
   },
   {
     num: "02",
@@ -15,6 +27,17 @@ const portfolio = [
     cover: `/images/vetercalm.jpeg`,
     link: "https://vetercalm.cl/",
     year: "2025",
+    problem:
+      "El sitio no generaba consultas y el proceso de reserva era confuso para los clientes que llegaban desde buscadores.",
+    process: [
+      "Rediseño de la experiencia de reserva y de las fichas de servicios.",
+      "Desarrollo sobre WordPress con tema personalizado y formularios optimizados.",
+      "Optimización de velocidad y acompañamiento post-lanzamiento.",
+    ],
+    result: [
+      { val: "+65%", label: "Consultas web" },
+      { val: "100%", label: "Flow de reservas claro" },
+    ],
   },
   {
     num: "03",
@@ -23,7 +46,17 @@ const portfolio = [
     cover: `/images/decorafacil.jpeg`,
     link: "https://decorafacil.cl/",
     year: "2026",
-    external: true,
+    problem:
+      "Tienda Shopify con fricción en el checkout y una página de producto sin información que generaba desconfianza.",
+    process: [
+      "Auditoría de conversión del embudo de compra.",
+      "Rediseño de fichas de producto y optimización del checkout.",
+      "Mejoras de rendimiento y prueba de cambios con datos.",
+    ],
+    result: [
+      { val: "+40%", label: "Tasa de conversión" },
+      { val: "1.8x", label: "Velocidad de la tienda" },
+    ],
   },
   {
     num: "04",
@@ -32,7 +65,17 @@ const portfolio = [
     cover: `/images/liraproject.jpeg`,
     link: "https://liraproject.cl/",
     year: "2025",
-    external: true,
+    problem:
+      "Marca con identidad dispersa y un sitio difícil de actualizar por el equipo interno, afectando la confianza de los prospectos.",
+    process: [
+      "Definición de identidad y estructura de contenidos.",
+      "WordPress con builder ligero y panel fácil para el cliente.",
+      "Carga de contenidos, ajustes finos y capacitación al equipo.",
+    ],
+    result: [
+      { val: "+50%", label: "Tiempo en el sitio" },
+      { val: "0", label: "Dependencia del dev" },
+    ],
   },
 ];
 ---
@@ -41,65 +84,177 @@ const portfolio = [
   <div style="max-width: var(--max-w); margin: 0 auto;">
 
     <!-- Header de sección -->
-    <div style="display: flex; align-items: center; gap: 1rem; padding: 2.5rem 1.5rem; border-bottom: 1px solid var(--border); justify-content: space-between;">
+    <div
+      style="display: flex; align-items: center; gap: 1rem; padding: 2.5rem 1.5rem; border-bottom: 1px solid var(--border); justify-content: space-between;">
       <div style="display: flex; align-items: center; gap: 1rem;">
         <div style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--ink-faint);">[03]</div>
         <h2 style="font-size: 1.1rem; font-weight: 500; font-family: var(--font-mono); color: var(--ink);">Trabajo seleccionado</h2>
       </div>
-      <div class="label-tag">{portfolio.length} proyectos</div>
+      <div class="label-tag">{portfolio.length} casos · clic para ver estudio</div>
     </div>
 
-    <!-- Grid de proyectos -->
-    <div style="display: grid; grid-template-columns: 1fr 1fr;" class="works-grid">
-      {portfolio.map((item, i) => (
-        <a
-          href={item.link}
-          target={item.external ? "_blank" : "_self"}
-          rel={item.external ? "noopener noreferrer" : undefined}
+    <!-- Lista de casos de estudio -->
+    {
+      portfolio.map((item, i) => (
+        <div
           style={`
-            display: block;
-            padding: 1.75rem 1.5rem;
-            ${i % 2 === 0 ? 'border-right: 1px solid var(--border);' : ''}
-            ${i < 2 ? 'border-bottom: 1px solid var(--border);' : ''}
+            border-bottom: 1px solid var(--border);
             transition: background 0.15s ease;
           `}
-          class="work-card"
-        >
-          <!-- Imagen -->
-          <div style="width: 100%; aspect-ratio: 16/9; overflow: hidden; border: 1px solid var(--border); margin-bottom: 1.25rem; background: var(--bg-surface);">
-            <img
-              src={item.cover}
-              alt={item.name}
-              style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; display: block;"
-              class="work-img"
-            />
-          </div>
-
-          <!-- Info -->
-          <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem;">
-            <div>
-              <div style="font-family: var(--font-mono); font-size: 0.6rem; color: var(--ink-faint); margin-bottom: 0.35rem;">[{item.num}] · {item.year}</div>
-              <h3 style="font-family: var(--font-mono); font-size: 1rem; font-weight: 500; color: var(--ink); margin-bottom: 0.3rem;">{item.name}</h3>
-              <p style="font-size: 0.78rem; color: var(--ink-faint); font-family: var(--font-mono);">{item.tags}</p>
+          class="case-item">
+          <!-- Fila visible -->
+          <button
+            class="case-toggle"
+            aria-expanded="false"
+            style="width: 100%; display: grid; grid-template-columns: 52px 88px 1fr auto; align-items: center; gap: 0; background: none; border: none; text-align: left; cursor: pointer; padding: 0; font-family: inherit;">
+            <div style="padding: 1.5rem 0 1.5rem 1.5rem; font-family: var(--font-mono); font-size: 0.65rem; color: var(--ink-faint);">
+              [{item.num}]
             </div>
-            <div style="width: 28px; height: 28px; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1rem; font-family: var(--font-mono); font-size: 0.9rem; color: var(--ink-muted); transition: background 0.15s ease, color 0.15s ease;" class="work-arrow">
-              {item.external ? '↗' : '→'}
+            <div style="padding: 1.5rem 1rem; overflow: hidden;">
+              <img
+                src={item.cover}
+                alt={item.name}
+                style="width: 88px; height: 60px; object-fit: cover; border: 1px solid var(--border); display: block;"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div style="padding: 1.5rem 1.5rem;">
+              <div style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 500; color: var(--ink); margin-bottom: 0.3rem;">
+                {item.name}
+              </div>
+              <div style="font-size: 0.78rem; color: var(--ink-faint); font-family: var(--font-mono);">
+                {item.tags}
+              </div>
+            </div>
+            <div style="padding: 1.5rem 1.5rem; text-align: right; display: flex; align-items: center; gap: 0.75rem;">
+              <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--ink-faint);">{item.year}</span>
+              <span class="case-plus" style="width: 28px; height: 28px; border: 1px solid var(--border); display: inline-flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-size: 1rem; color: var(--ink-muted); transition: background 0.15s, color 0.15s, transform 0.25s; flex-shrink: 0;">
+                +
+              </span>
+            </div>
+          </button>
+
+          <!-- Contenido expandible -->
+          <div class="case-body" style="max-height: 0; overflow: hidden; transition: max-height 0.35s ease;">
+            <div
+              style="display: grid; grid-template-columns: 1fr 1fr 1fr; border-top: 1px solid var(--border);"
+              class="case-body-grid">
+              <!-- Problema -->
+              <div style="padding: 2rem 1.5rem; border-right: 1px solid var(--border);">
+                <div class="label-tag" style="color: #CC2222; margin-bottom: 0.75rem;">Problema</div>
+                <p style="font-size: 0.85rem; line-height: 1.7; color: var(--ink-muted);">
+                  {item.problem}
+                </p>
+              </div>
+              <!-- Proceso -->
+              <div style="padding: 2rem 1.5rem; border-right: 1px solid var(--border);">
+                <div class="label-tag" style="margin-bottom: 0.75rem;">Proceso</div>
+                <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.6rem;">
+                  {item.process.map((p, j) => (
+                    <li style="display: flex; gap: 0.6rem; font-size: 0.8rem; color: var(--ink-muted); line-height: 1.6;">
+                      <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--ink-faint); flex-shrink: 0;">{String(j + 1).padStart(2, "0")}</span>
+                      {p}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <!-- Resultado -->
+              <div style="padding: 2rem 1.5rem;">
+                <div class="label-tag" style="margin-bottom: 0.75rem;">Resultado</div>
+                <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; margin-bottom: 1.5rem;">
+                  {item.result.map((r) => (
+                    <div>
+                      <div style="font-family: var(--font-mono); font-size: 1.5rem; font-weight: 600; color: var(--ink); line-height: 1; margin-bottom: 0.3rem;">
+                        {r.val}
+                      </div>
+                      <div style="font-size: 0.72rem; color: var(--ink-faint); font-family: var(--font-mono);">
+                        {r.label}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <a
+                  href={item.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style="display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--font-mono); font-size: 0.72rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink); border: 1.5px solid var(--border); padding: 0.6rem 1rem; transition: border-color 0.15s, color 0.15s; text-decoration: none;"
+                  class="case-link">
+                  Ver proyecto ↗
+                </a>
+              </div>
             </div>
           </div>
-        </a>
-      ))}
-    </div>
-
+        </div>
+      ))
+    }
   </div>
 </section>
 
-<style>
-  .work-card:hover { background: var(--bg-surface); }
-  .work-card:hover .work-img { transform: scale(1.03); }
-  .work-card:hover .work-arrow { background: var(--ink); color: var(--accent); border-color: var(--ink); }
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const items = Array.from(document.querySelectorAll(".case-item"));
 
-  @media (max-width: 768px) {
-    .works-grid { grid-template-columns: 1fr !important; }
-    .works-grid a { border-right: none !important; }
+    items.forEach((item) => {
+      const toggle = item.querySelector(".case-toggle") as HTMLElement;
+      const body = item.querySelector(".case-body") as HTMLElement;
+      const plus = item.querySelector(".case-plus") as HTMLElement;
+
+      toggle?.addEventListener("click", () => {
+        const isOpen = body?.style.maxHeight !== "0px" && body?.style.maxHeight !== "";
+
+        items.forEach((other) => {
+          const ob = other.querySelector(".case-body") as HTMLElement;
+          const op = other.querySelector(".case-plus") as HTMLElement;
+          const ot = other.querySelector(".case-toggle") as HTMLElement;
+          if (ob) ob.style.maxHeight = "0px";
+          if (op) op.style.transform = "rotate(0deg)";
+          if (ot) ot.setAttribute("aria-expanded", "false");
+        });
+
+        if (!isOpen) {
+          body!.style.maxHeight = body!.scrollHeight + "px";
+          plus!.style.transform = "rotate(45deg)";
+          toggle!.setAttribute("aria-expanded", "true");
+        }
+      });
+    });
+  });
+</script>
+
+<style>
+  .case-item:hover .case-toggle {
+    background: var(--bg-surface);
+  }
+  .case-item.open .case-toggle {
+    background: var(--bg-surface);
+  }
+  .case-toggle:hover .case-plus {
+    background: var(--ink);
+    color: var(--accent);
+    border-color: var(--ink);
+  }
+  .case-link:hover {
+    border-color: var(--ink);
+    color: var(--ink);
+  }
+
+  @media (max-width: 900px) {
+    .case-toggle {
+      grid-template-columns: 44px 1fr auto !important;
+    }
+    .case-toggle > div:nth-child(2) {
+      display: none !important;
+    }
+    .case-body-grid {
+      grid-template-columns: 1fr !important;
+    }
+    .case-body-grid > div {
+      border-right: none !important;
+      border-bottom: 1px solid var(--border);
+    }
+    .case-body-grid > div:last-child {
+      border-bottom: none !important;
+    }
   }
 </style>

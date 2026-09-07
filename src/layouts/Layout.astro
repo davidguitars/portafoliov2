@@ -1,8 +1,11 @@
 ---
+import WhatsAppButton from "../components/WhatsAppButton.astro";
+
 const {
   title = "David Urdaneta Studio",
   description = "Diseñador UX/UI & Desarrollador Frontend especializado en crear experiencias digitales que convierten.",
   image = "/images/david-profile.png",
+  showWhatsApp = true,
 } = Astro.props;
 
 const canonical =
@@ -65,5 +68,6 @@ const siteUrl = Astro.site ? Astro.site.href : "https://davidurdaneta.com";
     <!-- End Google Tag Manager (noscript) -->
 
     <slot />
+    {showWhatsApp && <WhatsAppButton />}
   </body>
 </html>
