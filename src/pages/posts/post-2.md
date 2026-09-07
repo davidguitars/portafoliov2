@@ -3,11 +3,11 @@ layout: ../../components/MarkdownPost.astro
 title: "UX/UI que convierte: por qué el diseño bonito no alcanza si no vende"
 author:
   name: "David Urdaneta"
-  url: "/images/david-profile.png"
 image:
   url: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=1200&q=80"
   alt: "Diseño UX/UI orientado a conversión"
 tags: ["UX/UI", "Diseño", "Conversión"]
+description: "El diseño bonito no alcanza si no vende. Principios de UX/UI orientados a conversión para productos digitales que generan resultados reales."
 pubDate: 'Abr 10, 2026'
 likes: '0'
 comments: '0'

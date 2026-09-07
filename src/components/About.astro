@@ -1,0 +1,153 @@
+---
+const bio = [
+  "Diseñador UX/UI y desarrollador frontend con 7 años de experiencia. Basado entre Porto (PT) y Santiago (CL), trabajo con marcas de Chile, España y Portugal que quieren resultados medibles.",
+  "No me limito a maquetas: investigo, diseño, desarrollo y automatizo con IA. Esto te permite tener un solo socio técnico de principio a fin, sin fricción entre equipos.",
+];
+
+const credentials = [
+  {
+    num: "01",
+    name: "7+ años de experiencia",
+    detail:
+      "Proyectos de e-commerce, servicios y marca personal en entornos reales de negocio.",
+  },
+  {
+    num: "02",
+    name: "IA integrada al desarrollo",
+    detail:
+      "Certificaciones en Desarrollo con IA, Marketing con IA y Ciberseguridad con IA aplicadas a cada entrega.",
+  },
+  {
+    num: "03",
+    name: "Diseño y código en una sola persona",
+    detail:
+      "UX/UI, frontend, automatizaciones y estrategia. Menos coordinación, más velocidad.",
+  },
+  {
+    num: "04",
+    name: "Enfoque en conversión",
+    detail:
+      "Cada decisión de diseño parte de un objetivo de negocio, no de una preferencia estética.",
+  },
+];
+
+const principles = [
+  "Comunicación directa, sin tickets",
+  "Precios claros, sin sorpresas",
+  "Disponibilidad real cuando tu web se cae",
+];
+
+const stats = [
+  { val: "7+", label: "Años exp." },
+  { val: "50+", label: "Proyectos" },
+  { val: "6", label: "Certs. IA" },
+];
+---
+
+<section id="sobre-mi" style="border-bottom: 1px solid var(--border);">
+  <div style="max-width: var(--max-w); margin: 0 auto;">
+    <!-- Header de sección -->
+    <div
+      style="display: grid; grid-template-columns: 1fr 2fr; border-bottom: 1px solid var(--border);"
+      class="about-header">
+      <div
+        style="padding: 2.5rem 1.5rem; border-right: 1px solid var(--border);">
+        <div class="label-tag" style="margin-bottom: 0.75rem;">Sobre mí</div>
+        <div
+          style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--ink-faint);">
+          [05]
+        </div>
+      </div>
+      <div style="padding: 2.5rem 2rem; display: flex; align-items: flex-end;">
+        <h2
+          style="font-size: clamp(1.4rem, 2.5vw, 2rem); font-weight: 500; color: var(--ink); max-width: 24ch;">
+          Un socio técnico de principio a fin
+        </h2>
+      </div>
+    </div>
+
+    <!-- Cuerpo: bio + credenciales -->
+    <div
+      style="display: grid; grid-template-columns: 1fr 1fr;"
+      class="about-grid">
+      <!-- Bio -->
+      <div style="padding: 2.5rem 2rem 2.5rem 1.5rem; border-right: 1px solid var(--border);">
+        {
+          bio.map((p) => (
+            <p
+              style="font-size: 0.9rem; line-height: 1.75; color: var(--ink-muted); margin-bottom: 1.25rem;">
+              {p}
+            </p>
+          ))
+        }
+
+        <div style="border-top: 1px solid var(--border); padding-top: 1.5rem;">
+          <div style="display: flex; gap: 0; flex-wrap: wrap;">
+            {
+              stats.map((s, i) => (
+                <div style={`${i > 0 ? " padding-left: 1.5rem; border-left: 1px solid var(--border);" : ""} padding-right: 1.5rem;`}>
+                  <div style="font-family: var(--font-mono); font-size: 1.5rem; font-weight: 600; color: var(--ink); line-height: 1; margin-bottom: 0.3rem;">
+                    {s.val}
+                  </div>
+                  <div class="label-tag">{s.label}</div>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+
+      <!-- Credenciales -->
+      <div style="padding: 2.5rem 1.5rem;">
+        <div style="display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 2rem;">
+          {
+            credentials.map((c) => (
+              <div style="display: grid; grid-template-columns: 32px 1fr; gap: 1rem;">
+                <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--ink-faint); padding-top: 0.15rem;">
+                  [{c.num}]
+                </span>
+                <div>
+                  <div style="font-family: var(--font-mono); font-size: 0.85rem; font-weight: 500; color: var(--ink); margin-bottom: 0.25rem;">
+                    {c.name}
+                  </div>
+                  <div style="font-size: 0.8rem; color: var(--ink-muted); line-height: 1.6;">
+                    {c.detail}
+                  </div>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+
+        <!-- Principios -->
+        <div style="border-top: 1px solid var(--border); padding-top: 1.25rem;">
+          {
+            principles.map((p) => (
+              <div
+                style="display: flex; align-items: center; gap: 0.6rem; font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-muted); padding: 0.4rem 0;">
+                <span style="color: var(--accent-dim);">◆</span> {p}
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  @media (max-width: 768px) {
+    .about-header,
+    .about-grid {
+      grid-template-columns: 1fr !important;
+    }
+    .about-header > div:first-child {
+      border-right: none !important;
+      border-bottom: 1px solid var(--border);
+    }
+    .about-grid > div:first-child {
+      border-right: none !important;
+      border-bottom: 1px solid var(--border);
+    }
+  }
+</style>

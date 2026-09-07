@@ -1,10 +1,18 @@
 ---
 import WhatsAppButton from "../components/WhatsAppButton.astro";
+import { getImage } from "astro:assets";
+import profileImg from "../assets/david-profile.png";
+
+const ogImg = await getImage({
+  src: profileImg,
+  format: "webp",
+  width: 1200,
+});
 
 const {
   title = "David Urdaneta Studio",
   description = "Diseñador UX/UI & Desarrollador Frontend especializado en crear experiencias digitales que convierten.",
-  image = "/images/david-profile.png",
+  image,
   showWhatsApp = true,
 } = Astro.props;
 
@@ -13,6 +21,8 @@ const canonical =
     ? new URL(Astro.url.pathname, Astro.site).href
     : Astro.url.pathname;
 const siteUrl = Astro.site ? Astro.site.href : "https://davidurdaneta.com";
+
+const ogImageUrl = image ? new URL(image, siteUrl).href : new URL(ogImg.src, siteUrl).href;
 ---
 
 <!doctype html>
@@ -32,14 +42,14 @@ const siteUrl = Astro.site ? Astro.site.href : "https://davidurdaneta.com";
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta property="og:image" content={new URL(image, siteUrl).href} />
+    <meta property="og:image" content={ogImageUrl} />
     <meta property="og:locale" content="es_CL" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={new URL(image, siteUrl).href} />
+    <meta name="twitter:image" content={ogImageUrl} />
 
     <!-- Google Tag Manager -->
     <script is:inline>
@@ -69,5 +79,80 @@ const siteUrl = Astro.site ? Astro.site.href : "https://davidurdaneta.com";
 
     <slot />
     {showWhatsApp && <WhatsAppButton />}
+
+    <!-- UTM tracking → mensajes de WhatsApp -->
+    <script is:inline>
+      (function () {
+        const KEYS = ["source", "medium", "campaign", "term", "content"];
+        const LABELS = {
+          source: "fuente",
+          medium: "medio",
+          campaign: "campaña",
+          term: "término",
+          content: "contenido",
+        };
+
+        function readUtm() {
+          try {
+            const params = new URLSearchParams(window.location.search);
+            const utm = {};
+            let found = false;
+            KEYS.forEach((k) => {
+              const v = params.get("utm_" + k);
+              if (v) {
+                utm[k] = v;
+                found = true;
+              }
+            });
+            if (found) {
+              try {
+                sessionStorage.setItem("wa_utm", JSON.stringify(utm));
+              } catch (e) {}
+              return utm;
+            }
+            try {
+              const stored = sessionStorage.getItem("wa_utm");
+              if (stored) return JSON.parse(stored);
+            } catch (e) {}
+            return null;
+          } catch (e) {
+            return null;
+          }
+        }
+
+        function appendUtm(href, utm) {
+          try {
+            const url = new URL(href);
+            const msg = url.searchParams.get("text") || "";
+            const parts = [];
+            KEYS.forEach((k) => {
+              if (utm[k]) parts.push(LABELS[k] + ": " + utm[k]);
+            });
+            if (!parts.length) return href;
+            const suffix = "\n\n(Origen detectado: " + parts.join(" · ") + ")";
+            url.searchParams.set("text", msg + suffix);
+            return url.toString();
+          } catch (e) {
+            return href;
+          }
+        }
+
+        document.addEventListener(
+          "click",
+          function (e) {
+            const el = e.target.closest(
+              'a[href^="https://wa.me/"], a[href^="https://api.whatsapp.com/"]',
+            );
+            if (!el) return;
+            const utm = readUtm();
+            if (!utm) return;
+            if (el.dataset.utmAppended) return;
+            el.dataset.utmAppended = "1";
+            el.href = appendUtm(el.href, utm);
+          },
+          true,
+        );
+      })();
+    </script>
   </body>
 </html>

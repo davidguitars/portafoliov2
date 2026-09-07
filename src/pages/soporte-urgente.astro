@@ -8,7 +8,6 @@ const WA_NUMBER = "56958679252";
 const WA_BASE = `https://wa.me/${WA_NUMBER}`;
 const EMAIL = "contacto@davidurdaneta.com";
 const LANDING_URL = "https://davidurdaneta.com/soporte-urgente";
-const LANDING_IMAGE = "/images/david-profile.png";
 
 const seo = {
   title: "Soporte Web Urgente — Web caída o WordPress roto | David Urdaneta",
@@ -141,10 +140,7 @@ const ticker = [
 ];
 ---
 
-<Layout
-  title={seo.title}
-  description={seo.description}
-  image={LANDING_IMAGE}>
+<Layout title={seo.title} description={seo.description}>
   <script
     type="application/ld+json"
     set:html={JSON.stringify({

@@ -3,11 +3,11 @@ layout: ../../components/MarkdownPost.astro
 title: "Marca personal digital: cómo posicionarte para atraer clientes grandes en 2026"
 author:
   name: "David Urdaneta"
-  url: "/images/david-profile.png"
 image:
   url: "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=1200&q=80"
   alt: "Marca personal digital y posicionamiento"
 tags: ["Marca Personal", "Marketing", "Estrategia"]
+description: "Cómo posicionar tu marca personal para atraer clientes de alto valor en 2026: estrategia, canales y posicionamiento digital explicados paso a paso."
 pubDate: 'Mar 28, 2026'
 likes: '0'
 comments: '0'

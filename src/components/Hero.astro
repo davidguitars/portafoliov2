@@ -1,6 +1,8 @@
 ---
 import Button from "./Button.astro";
+import { Image } from "astro:assets";
 import { author } from "../sample";
+import profileImg from "../assets/david-profile.png";
 ---
 
 <section
@@ -103,9 +105,15 @@ import { author } from "../sample";
           background: var(--bg-surface);
           box-shadow: 8px 8px 0 var(--ink);
         ">
-          <img
-            src="/images/david-profile.png"
+          <Image
+            src={profileImg}
             alt="David Urdaneta — UX/UI Designer & Developer"
+            width={520}
+            height={640}
+            format="webp"
+            quality={80}
+            loading="eager"
+            decoding="async"
             style="width: 100%; height: 100%; object-fit: cover; object-position: top center; filter: grayscale(15%);"
           />
         </div>

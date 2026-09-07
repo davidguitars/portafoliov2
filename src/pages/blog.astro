@@ -8,7 +8,9 @@ const allPosts = Object.values(import.meta.glob('./posts/*.md', { eager: true })
 allPosts.sort((a: any, b: any) => new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime());
 ---
 
-<Layout title="Blog — David Urdaneta">
+<Layout
+  title="Blog — David Urdaneta"
+  description="Notas prácticas sobre diseño UX/UI, desarrollo web e inteligencia artificial, para equipos que quieren construir mejores productos digitales.">
   <AppHeader />
 
   <main>

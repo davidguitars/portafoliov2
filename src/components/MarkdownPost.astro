@@ -5,9 +5,33 @@ import AppHeader from "./Header.astro";
 import AppFooter from "./Footer.astro";
 
 const { frontmatter } = Astro.props;
+
+const allPosts = Object.values(
+  import.meta.glob("../pages/posts/*.md", { eager: true }),
+).sort((a: any, b: any) => {
+  return (
+    new Date(b.frontmatter.pubDate).getTime() -
+    new Date(a.frontmatter.pubDate).getTime()
+  );
+});
+
+const currentIndex = allPosts.findIndex(
+  (p: any) => p.frontmatter.title === frontmatter.title,
+);
+const nextPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
+const prevPost =
+  currentIndex >= 0 && currentIndex < allPosts.length - 1
+    ? allPosts[currentIndex + 1]
+    : null;
 ---
 
-<Layout title={`${frontmatter.title} — Blog`}>
+<Layout
+  title={`${frontmatter.title} — Blog`}
+  description={
+    frontmatter.description ??
+    "Artículo del blog de David Urdaneta sobre diseño UX/UI, desarrollo web y estrategia digital."
+  }
+  image={frontmatter.image?.url}>
   <AppHeader />
 
   <main>
@@ -51,7 +75,9 @@ const { frontmatter } = Astro.props;
                 </div>
                 <div
                   style="font-family: var(--font-mono); font-size: 0.63rem; color: var(--ink-faint);">
-                  {frontmatter.pubDate}
+                  {frontmatter.pubDate} · <span
+                    id="reading-time"
+                    class="reading-time"></span>
                 </div>
               </div>
             </div>
@@ -155,6 +181,38 @@ const { frontmatter } = Astro.props;
       </aside>
     </div>
 
+    <!-- Navegación entre artículos -->
+    <div
+      style="max-width: var(--max-w); margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-top: 1px solid var(--border);"
+      class="post-nav-grid">
+      {
+        prevPost && (
+          <a
+            href={prevPost.url}
+            style="padding: 1.5rem; border-right: 1px solid var(--border); display: block; text-decoration: none; transition: background 0.15s ease;"
+            class="post-nav-link">
+            <div class="label-tag" style="margin-bottom: 0.5rem; color: #CC2222;">← Anterior</div>
+            <div style="font-family: var(--font-mono); font-size: 0.85rem; font-weight: 500; color: var(--ink); line-height: 1.4;">
+              {prevPost.frontmatter.title}
+            </div>
+          </a>
+        )
+      }
+      {
+        nextPost && (
+          <a
+            href={nextPost.url}
+            style="padding: 1.5rem; display: block; text-decoration: none; text-align: right; transition: background 0.15s ease;"
+            class="post-nav-link">
+            <div class="label-tag" style="margin-bottom: 0.5rem; color: #CC2222;">Siguiente →</div>
+            <div style="font-family: var(--font-mono); font-size: 0.85rem; font-weight: 500; color: var(--ink); line-height: 1.4;">
+              {nextPost.frontmatter.title}
+            </div>
+          </a>
+        )
+      }
+    </div>
+
     <!-- CTA banner inferior Hostinger -->
     <div
       style="border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--bg-dark);">
@@ -188,6 +246,17 @@ const { frontmatter } = Astro.props;
 
   <AppFooter />
 </Layout>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const article = document.querySelector(".prose-editorial");
+    const el = document.getElementById("reading-time");
+    if (!article || !el) return;
+    const words = (article.textContent || "").trim().split(/\s+/).length;
+    const minutes = Math.max(1, Math.round(words / 200));
+    el.textContent = `${minutes} min de lectura`;
+  });
+</script>
 
 <style>
   /* ── Tipografía editorial para el markdown ── */
@@ -273,9 +342,24 @@ const { frontmatter } = Astro.props;
     opacity: 0.88;
   }
 
+  .post-nav-link:hover {
+    background: var(--bg-surface);
+  }
+
   @media (max-width: 768px) {
     .post-hero-grid {
       grid-template-columns: 1fr !important;
+    }
+    .post-nav-grid {
+      grid-template-columns: 1fr !important;
+    }
+    .post-nav-grid a {
+      border-right: none !important;
+      border-bottom: 1px solid var(--border);
+    }
+    .post-nav-grid a:last-child {
+      border-bottom: none !important;
+      text-align: left !important;
     }
     .post-hero-grid > div:last-child {
       display: none !important;

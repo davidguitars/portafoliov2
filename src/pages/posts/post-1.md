@@ -3,11 +3,11 @@ layout: ../../components/MarkdownPost.astro
 title: "Desarrollo web con IA: cómo construir sitios más rápido (y mejor) en 2026"
 author:
   name: "David Urdaneta"
-  url: "/images/david-profile.png"
 image:
   url: "https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=1200&q=80"
   alt: "Desarrollo web con inteligencia artificial"
 tags: ["IA", "Desarrollo Web", "Productividad"]
+description: "Cómo la IA acelera el desarrollo web: métodos, certificaciones y resultados reales de quien lleva 7 años construyendo sitios que convierten."
 pubDate: 'Abr 22, 2026'
 likes: '0'
 comments: '0'

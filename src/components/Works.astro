@@ -1,10 +1,16 @@
 ---
+import { Image } from "astro:assets";
+import coverRoca from "../assets/work/estudioroca-desktop.png";
+import coverVeter from "../assets/work/vetercalm.jpeg";
+import coverDeco from "../assets/work/decorafacil.jpeg";
+import coverLira from "../assets/work/liraproject.jpeg";
+
 const portfolio = [
   {
     num: "01",
     name: "Estudio Roca",
     tags: "UX Research · UI Design · Webflow",
-    cover: `/images/estudioroca desktop.png`,
+    cover: coverRoca,
     link: "https://estudioroca.cl/",
     year: "2024",
     problem:
@@ -24,7 +30,7 @@ const portfolio = [
     num: "02",
     name: "Vetercalm",
     tags: "UI Design · Desarrollo · WordPress",
-    cover: `/images/vetercalm.jpeg`,
+    cover: coverVeter,
     link: "https://vetercalm.cl/",
     year: "2025",
     problem:
@@ -43,7 +49,7 @@ const portfolio = [
     num: "03",
     name: "Decorafácil",
     tags: "UI Design · Shopify · E-commerce",
-    cover: `/images/decorafacil.jpeg`,
+    cover: coverDeco,
     link: "https://decorafacil.cl/",
     year: "2026",
     problem:
@@ -62,7 +68,7 @@ const portfolio = [
     num: "04",
     name: "Lira Project",
     tags: "UX Research · WordPress · Branding",
-    cover: `/images/liraproject.jpeg`,
+    cover: coverLira,
     link: "https://liraproject.cl/",
     year: "2025",
     problem:
@@ -111,12 +117,16 @@ const portfolio = [
               [{item.num}]
             </div>
             <div style="padding: 1.5rem 1rem; overflow: hidden;">
-              <img
+              <Image
                 src={item.cover}
                 alt={item.name}
-                style="width: 88px; height: 60px; object-fit: cover; border: 1px solid var(--border); display: block;"
+                width={176}
+                height={120}
+                format="webp"
+                quality={70}
                 loading="lazy"
                 decoding="async"
+                style="width: 88px; height: 60px; object-fit: cover; border: 1px solid var(--border); display: block;"
               />
             </div>
             <div style="padding: 1.5rem 1.5rem;">
