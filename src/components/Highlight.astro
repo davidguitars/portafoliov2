@@ -1,0 +1,95 @@
+---
+const statement =
+  "Cada píxel cuenta una historia. Cada segundo de carga decide tu conversión. Diseño, código y estrategia. Construyo la narrativa visual y técnica de tu producto para que quien llega no mire la pantalla: se quede.";
+const words = statement.split(" ");
+---
+
+<section
+  class="highlight"
+  style="border-bottom: 1px solid var(--border); padding: 5rem 1.5rem; background: var(--bg-dark); overflow: hidden;">
+  <div style="max-width: var(--max-w); margin: 0 auto;">
+    <div
+      class="label-tag"
+      style="color: #6B6A65; display: block; margin-bottom: 2rem;">
+      [01] · Mientras haces scroll
+    </div>
+
+    <h2
+      class="highlight-text"
+      data-scrub-highlight
+      aria-label={statement}
+      style="font-size: clamp(1.6rem, 4.6vw, 3.2rem); font-weight: 500; line-height: 1.5; letter-spacing: -0.02em; color: #F5F4F0; margin: 0;">
+      {
+        words.map((w, i) => (
+          <span class="hw" data-hwi={i}>
+            {w}
+            {i < words.length - 1 ? " " : ""}
+          </span>
+        ))
+      }
+    </h2>
+
+    <div
+      class="highlight-progress"
+      style="margin-top: 2.5rem; display: flex; justify-content: space-between; align-items: center; font-family: var(--font-mono);">
+      <span class="label-tag" style="color: #6B6A65;">Scroll →</span>
+      <span class="label-tag" style="color: var(--accent);" id="highlight-pct"
+        >00%</span
+      >
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  gsap.registerPlugin(ScrollTrigger);
+
+  const reduceMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
+
+  if (!reduceMotion) {
+    const run = () => {
+      const words = gsap.utils.toArray<HTMLElement>(".hw");
+      if (!words.length) return;
+      const total = words.length;
+      const pct = document.getElementById("highlight-pct");
+      ScrollTrigger.create({
+        trigger: ".highlight-text",
+        start: "top 78%",
+        end: "bottom 40%",
+        scrub: true,
+        onUpdate: (self) => {
+          const target = Math.round(self.progress * total);
+          words.forEach((w, i) => w.classList.toggle("on", i < target));
+          if (pct) pct.textContent = `${Math.round(self.progress * 100)}%`;
+        },
+      });
+    };
+
+    if (document.readyState !== "loading") run();
+    else document.addEventListener("DOMContentLoaded", run);
+  }
+</script>
+
+<style>
+  .hw {
+    display: inline;
+    opacity: 0.15;
+    transition: opacity 0.25s ease, background 0.25s ease, color 0.25s ease;
+  }
+  .hw.on {
+    opacity: 1;
+    background: var(--accent);
+    color: var(--ink);
+    padding: 0 0.07em;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+  }
+  @media (max-width: 768px) {
+    .highlight {
+      padding: 3.5rem 1.25rem !important;
+    }
+  }
+</style>

@@ -6,6 +6,7 @@ import profileImg from "../assets/david-profile.png";
 ---
 
 <section
+  class="hero-scrub"
   style="min-height: calc(100vh - 56px); border-bottom: 1px solid var(--border); display: flex; align-items: center; overflow: hidden; position: relative;">
   <div
     style="max-width: var(--max-w); margin: 0 auto; padding: 4rem 1.5rem; width: 100%; position: relative; z-index: 2;">
@@ -95,6 +96,7 @@ import profileImg from "../assets/david-profile.png";
 
         <!-- Foto de David -->
         <div
+          class="hero-photo"
           style="
           position: relative;
           z-index: 5;
@@ -164,6 +166,29 @@ import profileImg from "../assets/david-profile.png";
 </section>
 
 <script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  gsap.registerPlugin(ScrollTrigger);
+
+  // ─── Efecto Apple: el hero "se agranda" y se hunde al scrollear ───
+  if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const hero = document.querySelector(".hero-scrub") as HTMLElement | null;
+    if (hero) {
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: hero,
+            start: "top top",
+            end: "+=80%",
+            scrub: true,
+          },
+        })
+        .to(".hero-grid", { y: -80, opacity: 0.15, ease: "none" }, 0)
+        .to(".hero-photo", { scale: 1.18, y: 48, ease: "none" }, 0)
+        .to(".hero-visual", { y: -36, ease: "none" }, 0);
+    }
+  }
+
   const canvas = document.getElementById("network-canvas") as HTMLCanvasElement;
   if (!canvas) throw new Error();
   const ctx = canvas.getContext("2d")!;

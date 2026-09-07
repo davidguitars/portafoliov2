@@ -102,21 +102,23 @@ const dims = [
           stagger: 0.16,
           scrollTrigger: {
             trigger: ".stage3d",
-            start: "top 92%",
-            end: "+=420",
+            start: "top 65%",
+            end: () => "+=" + window.innerHeight * 1.15,
             scrub: true,
+            pin: true,
+            anticipatePin: 1,
           },
         },
       );
 
-      // Tilt 3D con el mouse
-      const stage = document.querySelector(".stage3d") as HTMLElement;
-      if (stage) {
-        stage.addEventListener("pointermove", (e) => {
-          const r = stage.getBoundingClientRect();
+      // Tilt 3D con el mouse (sobre la pila, el stage queda anclado por GSAP)
+      const stack = document.querySelector(".stack3d") as HTMLElement;
+      if (stack) {
+        stack.addEventListener("pointermove", (e) => {
+          const r = stack.getBoundingClientRect();
           const x = (e.clientX - r.left) / r.width - 0.5;
           const y = (e.clientY - r.top) / r.height - 0.5;
-          gsap.to(stage, {
+          gsap.to(stack, {
             rotationY: x * 7,
             rotationX: -y * 7,
             transformPerspective: 1000,
@@ -124,8 +126,8 @@ const dims = [
             ease: "power2.out",
           });
         });
-        stage.addEventListener("pointerleave", () => {
-          gsap.to(stage, {
+        stack.addEventListener("pointerleave", () => {
+          gsap.to(stack, {
             rotationY: 0,
             rotationX: 0,
             duration: 0.5,
