@@ -105,7 +105,6 @@ import profileImg from "../assets/david-profile.png";
           border: 1.5px solid var(--border);
           overflow: hidden;
           background: var(--bg-surface);
-          box-shadow: 8px 8px 0 var(--ink);
         ">
           <Image
             src={profileImg}
@@ -116,7 +115,7 @@ import profileImg from "../assets/david-profile.png";
             quality={80}
             loading="eager"
             decoding="async"
-            style="width: 100%; height: 100%; object-fit: cover; object-position: top center; filter: grayscale(15%);"
+            style="width: 100%; height: 100%; object-fit: cover; object-position: top center;"
           />
         </div>
 
@@ -411,5 +410,24 @@ import profileImg from "../assets/david-profile.png";
   /* ── Botón primario: letra blanca ── */
   .btn-primary span {
     color: #ffffff !important;
+  }
+
+  /* ── Foto: sombra dura por defecto, se colorea y toma acento al hover ── */
+  .hero-photo {
+    box-shadow: 8px 8px 0 var(--ink);
+    transition: box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .hero-photo img {
+    filter: grayscale(15%);
+    transition: filter 0.3s ease;
+  }
+  @media (hover: hover) {
+    .hero-visual:hover .hero-photo {
+      box-shadow: 12px 12px 0 var(--accent);
+      border-color: var(--ink);
+    }
+    .hero-visual:hover .hero-photo img {
+      filter: grayscale(0);
+    }
   }
 </style>

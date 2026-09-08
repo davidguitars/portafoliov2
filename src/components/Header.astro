@@ -126,6 +126,21 @@ const { pathname } = Astro.url;
     color: var(--ink) !important;
     background: var(--bg-surface);
   }
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 1.1rem;
+    right: 1.1rem;
+    bottom: 12px;
+    height: 2px;
+    background: var(--ink);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.2s ease;
+  }
+  .nav-link:hover::after {
+    transform: scaleX(1);
+  }
 </style>
 
 <script>

@@ -34,6 +34,9 @@ const mytools = [
   .mad-marquee.mad-paused {
     animation-play-state: paused;
   }
+  #ticker-track:hover {
+    animation-play-state: paused;
+  }
   @keyframes mad-scroll {
     from {
       transform: translateX(0);
@@ -44,7 +47,7 @@ const mytools = [
   }
 </style>
 
-<div style="border-bottom: 1px solid var(--border); border-top: 1px solid var(--border); overflow: hidden; background: var(--bg-dark); padding: 0.9rem 0;">
+<div class="dark-panel" style="border-bottom: 1px solid var(--border); border-top: 1px solid var(--border); overflow: hidden; padding: 0.9rem 0;">
   <div id="ticker-track" style="display: flex; align-items: center; gap: 0; width: max-content;">
     {mytools.map((tool) => (
       <div style="display: flex; align-items: center; gap: 0; white-space: nowrap;">
